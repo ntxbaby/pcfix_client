@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">pcfix_client</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_item_list">Items</string>
+    <string name="title_item_detail">Item Detail</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_add_order">AddOrderActivity</string>
+    <string-array name="problems">
+        <item>cpu</item>
+        <item>内存</item>
+        <item>显卡</item>
+        <item>硬盘</item>
+        <item>显示器</item>
+        <item>键盘</item>
+        <item>鼠标</item>
+    </string-array>
+
+</resources>

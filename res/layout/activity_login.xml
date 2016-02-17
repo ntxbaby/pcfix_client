@@ -1,0 +1,88 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   	android:layout_gravity="center_horizontal"
+    android:stretchColumns="1">
+ 
+    <TextView
+        android:id="@+id/TextView"
+        android:text="欢迎使用电脑维修系统"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" />
+    <TableRow >
+         <TextView
+        android:text="用户账户"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+         />
+         <EditText 
+              android:id="@+id/login_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"/>
+    </TableRow>
+    
+      <TableRow >
+         <TextView
+        android:text="用户口令"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+         <EditText 
+              android:id="@+id/login_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"/>
+    </TableRow>
+    
+      <TableRow >
+         <TextView
+        android:text="用户类型"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+         <RadioGroup android:id="@+id/login_user_type"
+             android:orientation="horizontal"
+             android:layout_gravity="center_horizontal">
+             <RadioButton android:id="@+id/login_client"
+                 android:text="普通用户"
+                  android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:checked="true"/>
+             <RadioButton android:id="@+id/login_server"
+                 android:text="维修用户"
+                  android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        />
+             
+         </RadioGroup>
+    </TableRow>
+    
+     <LinearLayout android:orientation="horizontal"
+          android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+         
+         <Button 
+              android:id="@+id/btnLogin"
+        android:text="登陆"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onLogin"/>
+         <Button 
+              android:id="@+id/btnCancel"
+        android:text="取消"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+         
+         <Button 
+              android:id="@+id/btnRegister"
+        android:text="注册"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onRegister"/>
+     </LinearLayout>
+
+</TableLayout>
