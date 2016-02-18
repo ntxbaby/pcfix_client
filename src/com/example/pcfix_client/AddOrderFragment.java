@@ -76,7 +76,8 @@ public class AddOrderFragment extends Fragment {
 		map.put("order.desc", desc);
 		map.put("order.phone", phone);
 		map.put("order.addr", addr);
-		map.put("order.time", time);
+		map.put("order.createTime", time);
+		map.put("order.serveTime", time);
 		map.put("order.mathod", mathod);
 		map.put("order.problem", problem);
 		
@@ -84,7 +85,8 @@ public class AddOrderFragment extends Fragment {
 		sb.append("desc:"+desc +"\n");
 		sb.append("phone:"+phone +"\n");
 		sb.append("addr:"+addr +"\n");
-		sb.append("time:"+time +"\n");
+		sb.append("createTime:"+time +"\n");
+		sb.append("serveTime:"+time +"\n");
 		sb.append("mathod:"+mathod +"\n");
 		sb.append("problem:"+problem +"\n");
 		Log.d("onSubmit", sb.toString());
