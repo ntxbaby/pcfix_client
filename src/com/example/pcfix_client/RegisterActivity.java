@@ -83,11 +83,11 @@ public class RegisterActivity extends Activity {
 		sb.append("pwd:"+pwd +"\n");
 		sb.append("phone:"+phone +"\n");
 		sb.append("addr:"+addr +"\n");
-		Log.d("signup", sb.toString());
+		Log.d("SIGNUP", sb.toString());
 		
 		try {
 			JSONObject json = new JSONObject(HttpUtil.postRequest(API.SIGNUP, map));
-			Log.d("json", json.toString());
+			Log.d("SIGNUP-json", json.toString());
 			if(json.getInt("result") == 0)
 			{
 				return true;

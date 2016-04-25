@@ -38,21 +38,9 @@ public class ViewOrderFragment extends Fragment {
 	ListView orderList;
 	Button btnRefresh;
 	Button btnMyOrder;
+	String [] problems = new String[]{"cpu","内存","显卡","硬盘","显示器","键盘","鼠标"};//getResources().getStringArray(R.array.problems);
 	
 	@Override
-	/*
-	public void onActivityCreated(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onActivityCreated(savedInstanceState);
-		
-		String [] items = {"item1","item2","item3","item4"};
-		setListAdapter(new ArrayAdapter<String>(getActivity(),  
-                android.R.layout.simple_list_item_activated_1,  
-                items)); //使用静态数组填充列表  
-		
-	}
-	*/
-	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -77,7 +65,6 @@ public class ViewOrderFragment extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				// TODO Auto-generated method stub
 				Fragment fragment = null;
 				
 				fragment = new OrderDetailFragment();
@@ -109,7 +96,7 @@ public class ViewOrderFragment extends Fragment {
 				order = orders.getJSONObject(i);
 				Order o = new Order();
 				o.fromJSONObject(order);
-				list.add(o.toOrderMap());
+				list.add(o.toOrderMap(problems));
 				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -131,20 +118,20 @@ public class ViewOrderFragment extends Fragment {
 		sb.append("name:"+name +"\n");
 		sb.append("pwd:"+pwd +"\n");
 		
-		Log.d("login", sb.toString());
+		Log.d("LISTORDER", sb.toString());
 		
 		Map<String, String> map = new HashMap<String, String>();
 		
 		
 		try {
 			JSONObject json = new JSONObject(HttpUtil.postRequest(API.LISTORDER, map));
-			Log.d("json", json.toString());
+			Log.d("LISTORDER-json", json.toString());
 			if(json.getInt("result") == 0)
 			{
 				JSONArray orders = json.getJSONArray("orders");
 				SimpleAdapter sa = new SimpleAdapter(getActivity(), getData(orders),
 						R.layout.view_order_list_item, 
-						new String[]{"head","time","type", "desc"},
+						new String[]{"head","createTime","problem", "desc"},
 		                new int[]{R.id.list_item_head,R.id.list_item_time,R.id.list_item_type, R.id.list_item_desc} );
 				orderList.setAdapter(sa);
 				return true;

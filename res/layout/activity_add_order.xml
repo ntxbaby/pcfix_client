@@ -8,7 +8,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="问题类型" />
+            android:text="问题类型" 
+            android:textColor="#0f0"/>
 
         <Spinner
             android:id="@+id/add_order_problem"
@@ -26,14 +27,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="问题描述:" />
+            android:text="问题描述:" 
+            android:textColor="#0f0"/>
 
         <EditText
             android:id="@+id/add_order_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName" >
+            android:inputType="textPersonName" 
+            android:background="@drawable/bg_edit">
 
             <requestFocus />
         </EditText>
@@ -46,7 +49,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="处理方式:" />
+            android:text="处理方式:" 
+            android:textColor="#0f0"/>
 
         <RadioGroup
             android:id="@+id/add_order_process_method"
@@ -73,13 +77,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="联系电话:" />
+            android:text="联系电话:" 
+            android:textColor="#0f0"/>
 
         <EditText
             android:id="@+id/add_order_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
+            android:inputType="text" 
+           android:background="@drawable/bg_edit" />
     </TableRow>
 
     <TableRow>
@@ -87,13 +93,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="联系地址" />
+            android:text="联系地址" 
+            android:textColor="#0f0"/>
 
         <EditText
             android:id="@+id/add_order_addr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
+            android:inputType="text" 
+            android:background="@drawable/bg_edit"/>
     </TableRow>
 
     <TableRow>
@@ -101,13 +109,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="处理时间:" />
+            android:text="处理时间:" 
+            android:textColor="#0f0"/>
 
         <EditText
             android:id="@+id/add_order_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
+            android:inputType="text" 
+            android:background="@drawable/bg_edit"/>
     </TableRow>
 
     <Button
@@ -115,6 +125,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="提交"
-         />
+        android:background="@drawable/btn_selector" />
 
 </TableLayout>

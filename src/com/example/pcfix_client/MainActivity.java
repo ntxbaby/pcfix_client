@@ -20,6 +20,11 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 		
 		//tab
 		final ActionBar actionBar = getActionBar();
+		//actionBar.hide();
+		actionBar.setDisplayShowHomeEnabled(false);
+		actionBar.setDisplayShowTitleEnabled(false);
+		//actionBar.setHomeButtonEnabled(true);
+		//actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		actionBar.addTab(actionBar.newTab().setText("添加订单").setTabListener(this));
 		actionBar.addTab(actionBar.newTab().setText("查看订单").setTabListener(this));

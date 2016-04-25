@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import com.pcfix_client.API;
 import com.pcfix_client.HttpUtil;
+import com.pcfix_client.User;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -80,6 +81,7 @@ public class AddOrderFragment extends Fragment {
 		map.put("order.serveTime", time);
 		map.put("order.mathod", mathod);
 		map.put("order.problem", problem);
+		map.put("order.clientId", ""+User.getInstance().getId());
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append("desc:"+desc +"\n");
@@ -89,11 +91,12 @@ public class AddOrderFragment extends Fragment {
 		sb.append("serveTime:"+time +"\n");
 		sb.append("mathod:"+mathod +"\n");
 		sb.append("problem:"+problem +"\n");
-		Log.d("onSubmit", sb.toString());
+		sb.append("order.clientId"+User.getInstance().getId());
+		Log.d("ADDORDER", sb.toString());
 		
 		try {
 			JSONObject json = new JSONObject(HttpUtil.postRequest(API.ADDORDER, map));
-			Log.d("json", json.toString());
+			Log.d("ADDORDER-json", json.toString());
 			if(json.getInt("result") == 0)
 			{
 				return true;

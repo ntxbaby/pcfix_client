@@ -111,7 +111,7 @@ public class Order {
 			status = order.getInt("status");
 		
 	}
-	public Map<String, Object> toOrderMap(){
+	public Map<String, Object> toOrderMap(String [] problems){
 		Map<String, Object> orderMap = new HashMap<String, Object>();
 		orderMap.put("addr", addr);
 		orderMap.put("clientId", clientId);
@@ -121,13 +121,22 @@ public class Order {
 		orderMap.put("orderId", orderId);
 		orderMap.put("phone", phone);
 		orderMap.put("priceId", priceId);
-		orderMap.put("problem", problem);
+		orderMap.put("problem", problems[problem]);
 		orderMap.put("serveTime", serveTime);
 		orderMap.put("serverId", serverId);
 		orderMap.put("status", status);
 		return orderMap;
 	}
 	
+     
+	public static final int PROBLEM_CPU = 0;
+	public static final int PROBLEM_MEM = 1;
+	public static final int PROBLEM_GPU = 2;
+	public static final int PROBLEM_DISK = 3;
+	public static final int PROBLEM_MONITOR = 4;
+	public static final int PROBLEM_KEYBOARD = 5;
+	public static final int PROBLEM_MOUSE = 6;
+	//public static final String[] PROBLEM = new String[]{"cpu","ƒ⁄¥Ê","œ‘ø®","”≤≈Ã","œ‘ æ∆˜","º¸≈Ã"," Û±Í"};
 	
 	
 }

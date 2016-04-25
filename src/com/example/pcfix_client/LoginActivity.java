@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import com.pcfix_client.API;
 import com.pcfix_client.HttpUtil;
+import com.pcfix_client.User;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -74,7 +75,7 @@ public class LoginActivity extends Activity {
 		sb.append("name:"+name +"\n");
 		sb.append("pwd:"+pwd +"\n");
 		
-		Log.d("login", sb.toString());
+		Log.d("LOGIN", sb.toString());
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("user.type", type);
@@ -83,9 +84,11 @@ public class LoginActivity extends Activity {
 		
 		try {
 			JSONObject json = new JSONObject(HttpUtil.postRequest(API.LOGIN, map));
-			Log.d("json", json.toString());
+			Log.d("LOGIN-json", json.toString());
 			if(json.getInt("result") == 0)
 			{
+				JSONObject jsonUser = json.getJSONObject("user");
+				User.fromJSONObject(jsonUser);
 				return true;
 			}
 			else
