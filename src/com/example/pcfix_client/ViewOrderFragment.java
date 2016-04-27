@@ -36,8 +36,6 @@ import android.widget.TextView;
 public class ViewOrderFragment extends Fragment {
 
 	ListView orderList;
-	Button btnRefresh;
-	Button btnMyOrder;
 	String [] problems = new String[]{"cpu","内存","显卡","硬盘","显示器","键盘","鼠标"};//getResources().getStringArray(R.array.problems);
 	
 	@Override
@@ -47,17 +45,8 @@ public class ViewOrderFragment extends Fragment {
 		//return super.onCreateView(inflater, container, savedInstanceState);
 		View view = inflater.inflate(R.layout.view_order, container, false);
 		orderList = (ListView)view.findViewById(R.id.view_order_list);
-		btnRefresh = (Button)view.findViewById(R.id.view_order_refresh);
-		btnMyOrder = (Button)view.findViewById(R.id.view_order_my_order);
 		
-		btnRefresh.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				list();
-			}
-		});
+		
 		
 		
 		orderList.setOnItemClickListener(new OnItemClickListener() {
@@ -79,7 +68,7 @@ public class ViewOrderFragment extends Fragment {
 			
 		});
 		
-		list();
+		list(1);
 		
 		return view;
 	}
@@ -132,7 +121,7 @@ public class ViewOrderFragment extends Fragment {
 				SimpleAdapter sa = new SimpleAdapter(getActivity(), getData(orders),
 						R.layout.view_order_list_item, 
 						new String[]{"head","createTime","problem", "desc"},
-		                new int[]{R.id.list_item_head,R.id.list_item_time,R.id.list_item_type, R.id.list_item_desc} );
+		                new int[]{R.id.list_item_name,R.id.list_item_time,R.id.list_item_apply, R.id.list_item_desc} );
 				orderList.setAdapter(sa);
 				return true;
 			}
@@ -159,6 +148,37 @@ public class ViewOrderFragment extends Fragment {
 			e.printStackTrace();
 		}
 		
+		return true;
+	}
+	
+	private boolean list(int i){
+		List<Map<String, Object> > list = new ArrayList<Map<String, Object> >();
+		//test data
+		Map<String, Object> orderMap = new HashMap<String, Object>();
+		orderMap.put("name", "成栋");
+		orderMap.put("addr", "地址:湖北武汉");
+		orderMap.put("createTime", "2016-05-01");
+		orderMap.put("desc", "hard disk 坏了，請幫我修一下幫幫我");
+		orderMap.put("problem", "10人申請");
+		list.add(orderMap);
+		list.add(orderMap);
+		list.add(orderMap);
+		list.add(orderMap);
+		list.add(orderMap);
+		list.add(orderMap);
+		list.add(orderMap);
+		list.add(orderMap);
+		list.add(orderMap);
+		list.add(orderMap);
+		list.add(orderMap);
+		
+		
+		SimpleAdapter sa = new SimpleAdapter(getActivity(), list,
+				R.layout.view_order_list_item, 
+				new String[]{"name","addr","createTime","problem", "desc"},
+                new int[]{R.id.list_item_name,R.id.list_item_addr,R.id.list_item_time,R.id.list_item_apply, R.id.list_item_desc} );
+		orderList.setAdapter(sa);
+				
 		return true;
 	}
 	

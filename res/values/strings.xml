@@ -9,6 +9,7 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_add_order">AddOrderActivity</string>
+
     <string-array name="problems">
         <item>cpu</item>
         <item>内存</item>
@@ -18,5 +19,7 @@
         <item>键盘</item>
         <item>鼠标</item>
     </string-array>
+
+    <string name="title_activity_setting">SettingActivity</string>
 
 </resources>

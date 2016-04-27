@@ -11,6 +11,7 @@ import com.pcfix_client.HttpUtil;
 import com.pcfix_client.User;
 
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
@@ -39,7 +40,8 @@ public class LoginActivity extends Activity {
 		btnCancel = (Button)findViewById(R.id.btnCancel);
 		btnRegister = (Button)findViewById(R.id.btnRegister);
 		rg = (RadioGroup)findViewById(R.id.login_user_type);
-		
+		final ActionBar actionBar = getActionBar();
+		actionBar.hide();
 	}
 	
 	public void onLogin(View v) {
@@ -66,6 +68,7 @@ public class LoginActivity extends Activity {
 	}
 	
 	private boolean loginPro(){
+	/*
 		String type = rg.getCheckedRadioButtonId() == R.id.login_client ? "0" : "1";
 		String name = editName.getText().toString();
 		String pwd = editPwd.getText().toString();
@@ -117,7 +120,7 @@ public class LoginActivity extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		*/
 		return true;
 	}
 

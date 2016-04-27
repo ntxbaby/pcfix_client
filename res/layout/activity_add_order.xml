@@ -3,58 +3,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TableRow>
+    <TableRow 
+        android:layout_margin="10dp"
+       >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="问题类型" 
-            android:textColor="#0f0"/>
+            android:layout_marginRight="10dp"
+            android:text="问题类型:"
+            android:textColor="#0f0"
+            android:textSize="15sp" />
 
         <Spinner
             android:id="@+id/add_order_problem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
-            android:entries="@array/problems"/>
-
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/problems"
+            android:textSize="15sp" />
         
     </TableRow>
 
     <TableRow
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="问题描述:" 
-            android:textColor="#0f0"/>
+            android:textColor="#0f0"
+            android:layout_marginRight="10dp"
+            android:textSize="15sp"/>
 
         <EditText
             android:id="@+id/add_order_desc"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName" 
-            android:background="@drawable/bg_edit">
+            android:background="@drawable/bg_edit"
+            android:padding="5dp"
+            android:textSize="15sp">
 
             <requestFocus />
         </EditText>
     </TableRow>
 
     <TableRow
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="处理方式:" 
-            android:textColor="#0f0"/>
+            android:textColor="#0f0"
+            android:layout_marginRight="10dp"
+            android:textSize="15sp"/>
 
         <RadioGroup
             android:id="@+id/add_order_process_method"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="fill_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
             <RadioButton
@@ -62,62 +74,87 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="上门处理" />
+                android:text="上门处理" 
+                android:layout_marginRight="10dp"
+                android:textSize="15sp"/>
 
             <RadioButton
                 android:id="@+id/add_order_remote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="远程处理" />
+                android:text="远程处理" 
+                android:textSize="15sp"/>
         </RadioGroup>
     </TableRow>
 
-    <TableRow>
+    <TableRow android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="联系电话:" 
-            android:textColor="#0f0"/>
+            android:inputType="phone"
+            android:textColor="#0f0"
+            android:layout_marginRight="10dp"
+            android:textSize="15sp"/>
 
         <EditText
             android:id="@+id/add_order_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text" 
-           android:background="@drawable/bg_edit" />
+           android:background="@drawable/bg_edit" 
+           android:padding="5dp"
+           android:textSize="15sp"
+           />
     </TableRow>
 
-    <TableRow>
+    <TableRow android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="联系地址" 
-            android:textColor="#0f0"/>
+            android:text="联系地址:" 
+            android:textColor="#0f0"
+            android:layout_marginRight="10dp"
+            android:textSize="15sp"/>
 
         <EditText
             android:id="@+id/add_order_addr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text" 
-            android:background="@drawable/bg_edit"/>
+            android:background="@drawable/bg_edit"
+            android:padding="5dp"
+            android:textSize="15sp"/>
     </TableRow>
 
-    <TableRow>
+    <TableRow android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="处理时间:" 
-            android:textColor="#0f0"/>
+            android:textColor="#0f0"
+            android:layout_marginRight="10dp"
+            android:textSize="15sp"/>
 
         <EditText
             android:id="@+id/add_order_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" 
-            android:background="@drawable/bg_edit"/>
+            android:layout_marginRight="0dp"
+            android:background="@drawable/bg_edit"
+            android:inputType="text"
+            android:padding="5dp"
+            android:textSize="15sp" />
+
     </TableRow>
 
     <Button
@@ -125,6 +162,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="提交"
-        android:background="@drawable/btn_selector" />
+        android:background="@drawable/btn_selector" 
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"/>
 
 </TableLayout>
