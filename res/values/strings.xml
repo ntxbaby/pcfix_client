@@ -21,5 +21,6 @@
     </string-array>
 
     <string name="title_activity_setting">SettingActivity</string>
+    <string name="title_activity_order_detail">OrderDetailActivity</string>
 
 </resources>

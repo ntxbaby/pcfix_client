@@ -40,6 +40,10 @@
             android:name="com.example.pcfix_client.SettingActivity"
             android:label="@string/title_activity_setting" >
         </activity>
+        <activity
+            android:name="com.example.pcfix_client.OrderDetailActivity"
+            android:label="@string/title_activity_order_detail" >
+        </activity>
     </application>
 
 </manifest>

@@ -6,13 +6,16 @@ import java.util.List;
 import java.util.Map;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.AbsListView.LayoutParams;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class MyOrderFragment extends Fragment {
 
@@ -51,6 +54,20 @@ public class MyOrderFragment extends Fragment {
 				new String[]{"state","createTime", "desc"},
                 new int[]{R.id.list_item_state,R.id.list_item_time, R.id.list_item_desc} );
 		listView.setAdapter(sa);
+		
+		
+		listView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				
+				Intent intent = new Intent(getActivity(), OrderDetailActivity.class);
+				startActivity(intent);
+				
+			}
+			
+		});
 		
 		return listView;
 	}

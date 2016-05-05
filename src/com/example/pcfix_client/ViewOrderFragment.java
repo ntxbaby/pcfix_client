@@ -16,6 +16,7 @@ import com.pcfix_client.Order;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -54,7 +55,7 @@ public class ViewOrderFragment extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Fragment fragment = null;
+				/*Fragment fragment = null;
 				
 				fragment = new OrderDetailFragment();
 				
@@ -64,6 +65,10 @@ public class ViewOrderFragment extends Fragment {
 				FragmentTransaction ftr = getFragmentManager().beginTransaction();
 				ftr.replace(R.id.main_container, fragment);
 				ftr.commit();
+				*/
+				Intent intent = new Intent(getActivity(), OrderDetailActivity.class);
+				startActivity(intent);
+				
 			}
 			
 		});
