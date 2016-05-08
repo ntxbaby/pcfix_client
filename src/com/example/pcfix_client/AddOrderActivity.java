@@ -122,12 +122,13 @@ private boolean submit(){
 		if (submit()) {
 			Toast.makeText(this, "提交成功！", Toast.LENGTH_LONG).show();
 			
-			Fragment fragment = null;
-			
-			fragment = new ViewOrderFragment();
-			FragmentTransaction ftr = getFragmentManager().beginTransaction();
-			ftr.replace(R.id.main_container, fragment);
-			ftr.commit();
+//			Fragment fragment = null;
+//			
+//			fragment = new ViewOrderFragment();
+//			FragmentTransaction ftr = getFragmentManager().beginTransaction();
+//			ftr.replace(R.id.main_container, fragment);
+//			ftr.commit();
+			finish();
 			
 		}else{
 			Toast.makeText(this, "提交失败！" + msg, Toast.LENGTH_LONG).show();

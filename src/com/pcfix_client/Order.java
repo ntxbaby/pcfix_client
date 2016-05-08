@@ -124,7 +124,7 @@ public class Order {
 		orderMap.put("problem", problems[problem]);
 		orderMap.put("serveTime", serveTime);
 		orderMap.put("serverId", serverId);
-		orderMap.put("status", status);
+		orderMap.put("status", API.STATES[status]);
 		return orderMap;
 	}
 	

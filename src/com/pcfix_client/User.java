@@ -76,6 +76,7 @@ public class User {
 		inst.star = jsonUser.getInt("star");
 		return inst;
 	}
+	
 
 	public Map<String, Object> toUserMap() {
 		Map<String, Object> userMap = new HashMap<String, Object>();

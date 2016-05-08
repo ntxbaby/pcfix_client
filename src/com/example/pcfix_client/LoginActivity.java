@@ -68,7 +68,7 @@ public class LoginActivity extends Activity {
 	}
 	
 	private boolean loginPro(){
-	/*
+	
 		String type = rg.getCheckedRadioButtonId() == R.id.login_client ? "0" : "1";
 		String name = editName.getText().toString();
 		String pwd = editPwd.getText().toString();
@@ -120,7 +120,7 @@ public class LoginActivity extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		*/
+		
 		return true;
 	}
 

@@ -14,7 +14,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="订单详情:11111\n问题类型:22222\n" />
-    
+    <TextView
+        android:id="@+id/order_detail_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="订单价格:----" />
+    <TextView
+        android:id="@+id/order_detail_state"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#f00"
+        android:text="订单状态:申请中..." />
     <ListView 
         android:id="@+id/order_detail_server_list"
         android:layout_width="match_parent"

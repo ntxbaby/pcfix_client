@@ -37,7 +37,6 @@ import android.widget.TextView;
 public class ViewOrderFragment extends Fragment {
 
 	ListView orderList;
-	String [] problems = new String[]{"cpu","ÄÚ´æ","ÏÔ¿¨","Ó²ÅÌ","ÏÔÊ¾Æ÷","¼üÅÌ","Êó±ê"};//getResources().getStringArray(R.array.problems);
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,13 +72,13 @@ public class ViewOrderFragment extends Fragment {
 			
 		});
 		
-		list(1);
+		list();
 		
 		return view;
 	}
 	
 	
-	List<Map<String, Object> > getData(JSONArray orders){
+	public static List<Map<String, Object> > getData(JSONArray orders){
 		
 		List<Map<String, Object> > list = new ArrayList<Map<String, Object> >();
 		for (int i = 0; i < orders.length(); i++) {
@@ -90,7 +89,7 @@ public class ViewOrderFragment extends Fragment {
 				order = orders.getJSONObject(i);
 				Order o = new Order();
 				o.fromJSONObject(order);
-				list.add(o.toOrderMap(problems));
+				list.add(o.toOrderMap(API.PROBLEMS));
 				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -123,11 +122,14 @@ public class ViewOrderFragment extends Fragment {
 			if(json.getInt("result") == 0)
 			{
 				JSONArray orders = json.getJSONArray("orders");
+				
+				
 				SimpleAdapter sa = new SimpleAdapter(getActivity(), getData(orders),
 						R.layout.view_order_list_item, 
-						new String[]{"head","createTime","problem", "desc"},
-		                new int[]{R.id.list_item_name,R.id.list_item_time,R.id.list_item_apply, R.id.list_item_desc} );
+						new String[]{"name","addr","createTime","apply", "desc"},
+		                new int[]{R.id.list_item_name,R.id.list_item_addr,R.id.list_item_time,R.id.list_item_apply, R.id.list_item_desc} );
 				orderList.setAdapter(sa);
+				
 				return true;
 			}
 			else
