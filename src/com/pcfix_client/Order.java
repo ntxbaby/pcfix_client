@@ -111,7 +111,7 @@ public class Order {
 			status = order.getInt("status");
 		
 	}
-	public Map<String, Object> toOrderMap(String [] problems){
+	public Map<String, Object> toOrderMap(){
 		Map<String, Object> orderMap = new HashMap<String, Object>();
 		orderMap.put("addr", addr);
 		orderMap.put("clientId", clientId);
@@ -121,11 +121,28 @@ public class Order {
 		orderMap.put("orderId", orderId);
 		orderMap.put("phone", phone);
 		orderMap.put("priceId", priceId);
-		orderMap.put("problem", problems[problem]);
+		orderMap.put("problem", API.PROBLEMS[problem]);
 		orderMap.put("serveTime", serveTime);
 		orderMap.put("serverId", serverId);
 		orderMap.put("status", API.STATES[status]);
 		return orderMap;
+	}
+	public SerializableMap toOrderSerializableMap(){
+		SerializableMap sm = new SerializableMap();
+		Map<String,Object> orderMap = sm.getMap();
+		orderMap.put("addr", addr);
+		orderMap.put("clientId", clientId);
+		orderMap.put("createTime", createTime);
+		orderMap.put("desc", desc);
+		orderMap.put("mathod", mathod);
+		orderMap.put("orderId", orderId);
+		orderMap.put("phone", phone);
+		orderMap.put("priceId", priceId);
+		orderMap.put("problem", API.PROBLEMS[problem]);
+		orderMap.put("serveTime", serveTime);
+		orderMap.put("serverId", serverId);
+		orderMap.put("status", API.STATES[status]);
+		return sm;
 	}
 	
      

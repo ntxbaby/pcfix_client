@@ -1,5 +1,6 @@
 package com.example.pcfix_client;
 
+import java.io.ObjectOutputStream.PutField;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +12,10 @@ import org.json.JSONObject;
 
 import com.pcfix_client.API;
 import com.pcfix_client.HttpUtil;
+import com.pcfix_client.Order;
+import com.pcfix_client.SerializableMap;
 import com.pcfix_client.User;
+import com.pcfix_client.ViewOrder;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -64,6 +68,7 @@ public class MyOrderFragment extends Fragment {
 		listView.setAdapter(sa);
 		
 		*/
+		listMyOrder();
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -71,18 +76,40 @@ public class MyOrderFragment extends Fragment {
 					int position, long id) {
 				
 				Intent intent = new Intent(getActivity(), OrderDetailActivity.class);
+				
+				Bundle mBundle = new Bundle();  Log.d("DDDD", "onItemClick");
+		      //  mBundle.putSerializable( "order", new SerializableMap( data.get(position) ) ); ;
+				Map<String, Object> map = data.get(position);
+				
+				mBundle.putString("addr", (String)map.get("addr"));
+				mBundle.putInt("clientId", (Integer)map.get("clientId"));
+				mBundle.putString("createTime", (String)map.get("createTime"));
+				mBundle.putString("desc", (String)map.get("desc"));
+				mBundle.putInt("mathod", (Integer)map.get("mathod"));
+				mBundle.putInt("orderId", (Integer)map.get("orderId"));
+				mBundle.putString("phone", (String)map.get("phone"));
+				mBundle.putInt("priceId", (Integer)map.get("priceId"));
+				mBundle.putString("problem", (String)map.get("problem"));
+				mBundle.putString("serveTime", (String)map.get("serveTime"));
+				mBundle.putInt("serverId", (Integer)map.get("serverId"));
+				mBundle.putString("status",(String)map.get("status"));
+				
+		        intent.putExtras(mBundle); 
+		        Log.d("DDDD", "startActivity");
+			
 				startActivity(intent);
 				
 			}
 			
 		});
 		
-		listMyOrder();
+		
 		
 		return listView;
 	}
 	
 	String msg;
+	private List<Map<String, Object>> data;
 	private boolean listMyOrder(){
 		
 		Map<String, String> map = new HashMap<String, String>();
@@ -97,7 +124,8 @@ public class MyOrderFragment extends Fragment {
 			{
 				JSONArray orders = json.getJSONArray("orders");
 				
-				SimpleAdapter sa = new SimpleAdapter(getActivity(), ViewOrderFragment.getData(orders),
+				data = getData(orders);
+				SimpleAdapter sa = new SimpleAdapter(getActivity(), data,
 						R.layout.my_order_list_item, 
 						new String[]{"status","createTime", "desc"},
 		                new int[]{R.id.list_item_state,R.id.list_item_time, R.id.list_item_desc} );
@@ -130,6 +158,28 @@ public class MyOrderFragment extends Fragment {
 		}
 		
 		return true;
+	}
+	
+public  List<Map<String, Object> > getData(JSONArray orders){
+		
+		List<Map<String, Object> > list = new ArrayList<Map<String, Object> >();
+		for (int i = 0; i < orders.length(); i++) {
+			
+			JSONObject order;
+			try {
+				
+				order = orders.getJSONObject(i);
+				Order o = new Order();
+				o.fromJSONObject(order);
+				list.add(o.toOrderMap());
+				
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		return list;
 	}
 
 	

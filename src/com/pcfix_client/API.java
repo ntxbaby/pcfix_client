@@ -7,6 +7,8 @@ public class API {
 	public static final String ADDORDER = BASE_URL + "addorder";
 	public static final String LISTORDER = BASE_URL + "listorder";
 	public static final String LISTMYORDER = BASE_URL + "listmyorder";
+	public static final String VIEWORDER = BASE_URL + "vieworder";
+	public static final String LISTPRICE = BASE_URL + "listprice";
 	public static final String [] STATES = new String[]{"竞价中...", "处理中...", "完成", "过期"};
 	public static final String [] PROBLEMS = new String[]{"cpu","内存","显卡","硬盘","显示器","键盘","鼠标"};
 	

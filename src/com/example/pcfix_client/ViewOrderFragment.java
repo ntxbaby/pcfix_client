@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import com.pcfix_client.API;
 import com.pcfix_client.HttpUtil;
 import com.pcfix_client.Order;
+import com.pcfix_client.ViewOrder;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -87,9 +88,9 @@ public class ViewOrderFragment extends Fragment {
 			try {
 				
 				order = orders.getJSONObject(i);
-				Order o = new Order();
+				ViewOrder o = new ViewOrder();
 				o.fromJSONObject(order);
-				list.add(o.toOrderMap(API.PROBLEMS));
+				list.add(o.toOrderMap());
 				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -117,7 +118,7 @@ public class ViewOrderFragment extends Fragment {
 		
 		
 		try {
-			JSONObject json = new JSONObject(HttpUtil.postRequest(API.LISTORDER, map));
+			JSONObject json = new JSONObject(HttpUtil.postRequest(API.VIEWORDER, map));
 			Log.d("LISTORDER-json", json.toString());
 			if(json.getInt("result") == 0)
 			{
@@ -166,7 +167,7 @@ public class ViewOrderFragment extends Fragment {
 		orderMap.put("addr", "地址:湖北武汉");
 		orderMap.put("createTime", "2016-05-01");
 		orderMap.put("desc", "hard disk 坏了，請幫我修一下幫幫我");
-		orderMap.put("problem", "10人申請");
+		orderMap.put("apply", "10人申請");
 		list.add(orderMap);
 		list.add(orderMap);
 		list.add(orderMap);
@@ -182,7 +183,7 @@ public class ViewOrderFragment extends Fragment {
 		
 		SimpleAdapter sa = new SimpleAdapter(getActivity(), list,
 				R.layout.view_order_list_item, 
-				new String[]{"name","addr","createTime","problem", "desc"},
+				new String[]{"name","addr","createTime","apply", "desc"},
                 new int[]{R.id.list_item_name,R.id.list_item_addr,R.id.list_item_time,R.id.list_item_apply, R.id.list_item_desc} );
 		orderList.setAdapter(sa);
 				
