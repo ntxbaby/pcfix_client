@@ -127,9 +127,8 @@ public class Order {
 		orderMap.put("status", API.STATES[status]);
 		return orderMap;
 	}
-	public SerializableMap toOrderSerializableMap(){
-		SerializableMap sm = new SerializableMap();
-		Map<String,Object> orderMap = sm.getMap();
+	public Map<String, Object> toOrderMapServer(){
+		Map<String, Object> orderMap = new HashMap<String, Object>();
 		orderMap.put("addr", addr);
 		orderMap.put("clientId", clientId);
 		orderMap.put("createTime", createTime);
@@ -141,8 +140,8 @@ public class Order {
 		orderMap.put("problem", API.PROBLEMS[problem]);
 		orderMap.put("serveTime", serveTime);
 		orderMap.put("serverId", serverId);
-		orderMap.put("status", API.STATES[status]);
-		return sm;
+		orderMap.put("status", API.STATES_SERVER[status]);
+		return orderMap;
 	}
 	
      

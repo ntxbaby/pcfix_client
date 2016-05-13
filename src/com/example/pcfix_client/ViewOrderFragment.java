@@ -38,114 +38,105 @@ import android.widget.TextView;
 public class ViewOrderFragment extends Fragment {
 
 	ListView orderList;
+	private List<Map<String, Object>> data;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		//return super.onCreateView(inflater, container, savedInstanceState);
+		// return super.onCreateView(inflater, container, savedInstanceState);
 		View view = inflater.inflate(R.layout.view_order, container, false);
-		orderList = (ListView)view.findViewById(R.id.view_order_list);
-		
-		
-		
-		
+		orderList = (ListView) view.findViewById(R.id.view_order_list);
+
 		orderList.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				/*Fragment fragment = null;
-				
-				fragment = new OrderDetailFragment();
-				
-				Bundle args = new Bundle();
-				args.putInt("select_item", position);
-				fragment.setArguments(args);
-				FragmentTransaction ftr = getFragmentManager().beginTransaction();
-				ftr.replace(R.id.main_container, fragment);
-				ftr.commit();
-				*/
-				Intent intent = new Intent(getActivity(), OrderDetailActivity.class);
+
+				Intent intent = new Intent(getActivity(),
+						ViewOrderDetailActivity.class);
+
+				Bundle mBundle = new Bundle();
+				Map<String, Object> map = data.get(position);
+
+				mBundle.putString("addr", (String) map.get("addr"));
+				mBundle.putString("name", (String) map.get("name"));
+				mBundle.putString("createTime", (String) map.get("createTime"));
+				mBundle.putString("desc", (String) map.get("desc"));
+				mBundle.putString("apply", (String) map.get("apply"));
+				mBundle.putInt("orderId", (Integer) map.get("orderId"));
+
+				intent.putExtras(mBundle);
+
 				startActivity(intent);
-				
+
 			}
-			
+
 		});
-		
+
 		list();
-		
+
 		return view;
 	}
-	
-	
-	public static List<Map<String, Object> > getData(JSONArray orders){
-		
-		List<Map<String, Object> > list = new ArrayList<Map<String, Object> >();
+
+	public static List<Map<String, Object>> getData(JSONArray orders) {
+
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		for (int i = 0; i < orders.length(); i++) {
-			
+
 			JSONObject order;
 			try {
-				
+
 				order = orders.getJSONObject(i);
 				ViewOrder o = new ViewOrder();
 				o.fromJSONObject(order);
 				list.add(o.toOrderMap());
-				
+
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 		}
 		return list;
 	}
-	
+
 	String msg;
-	private boolean list(){
-		String type = "1";
-		String name = "1";
-		String pwd = "1";
-		
-		StringBuilder sb = new StringBuilder();
-		sb.append("type:"+type +"\n");
-		sb.append("name:"+name +"\n");
-		sb.append("pwd:"+pwd +"\n");
-		
-		Log.d("LISTORDER", sb.toString());
-		
+
+	private boolean list() {
+
 		Map<String, String> map = new HashMap<String, String>();
-		
-		
+
 		try {
-			JSONObject json = new JSONObject(HttpUtil.postRequest(API.VIEWORDER, map));
+			JSONObject json = new JSONObject(HttpUtil.postRequest(
+					API.VIEWORDER, map));
 			Log.d("LISTORDER-json", json.toString());
-			if(json.getInt("result") == 0)
-			{
+			if (json.getInt("result") == 0) {
 				JSONArray orders = json.getJSONArray("orders");
-				
-				
-				SimpleAdapter sa = new SimpleAdapter(getActivity(), getData(orders),
-						R.layout.view_order_list_item, 
-						new String[]{"name","addr","createTime","apply", "desc"},
-		                new int[]{R.id.list_item_name,R.id.list_item_addr,R.id.list_item_time,R.id.list_item_apply, R.id.list_item_desc} );
+
+				data = getData(orders);
+				SimpleAdapter sa = new SimpleAdapter(getActivity(), data,
+						R.layout.view_order_list_item, new String[] { "name",
+								"addr", "createTime", "apply", "desc" },
+						new int[] { R.id.list_item_name, R.id.list_item_addr,
+								R.id.list_item_time, R.id.list_item_apply,
+								R.id.list_item_desc });
 				orderList.setAdapter(sa);
-				
+
 				return true;
-			}
-			else
-			{
+			} else {
 				switch (json.getInt("error")) {
 				case 300:
 					msg = "¶©µ¥²»´æÔÚ";
 					break;
 				case 301:
-					msg = "µÇÂ½ÓÃ»§ÃÜÂë´íÎó";	
+					msg = "µÇÂ½ÓÃ»§ÃÜÂë´íÎó";
 					break;
 				default:
 					break;
 				}
-				
+
 				return false;
 			}
 		} catch (JSONException e) {
@@ -155,13 +146,13 @@ public class ViewOrderFragment extends Fragment {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return true;
 	}
-	
-	private boolean list(int i){
-		List<Map<String, Object> > list = new ArrayList<Map<String, Object> >();
-		//test data
+
+	private boolean list(int i) {
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		// test data
 		Map<String, Object> orderMap = new HashMap<String, Object>();
 		orderMap.put("name", "³É¶°");
 		orderMap.put("addr", "µØÖ·:ºþ±±Îäºº");
@@ -179,16 +170,16 @@ public class ViewOrderFragment extends Fragment {
 		list.add(orderMap);
 		list.add(orderMap);
 		list.add(orderMap);
-		
-		
+
 		SimpleAdapter sa = new SimpleAdapter(getActivity(), list,
-				R.layout.view_order_list_item, 
-				new String[]{"name","addr","createTime","apply", "desc"},
-                new int[]{R.id.list_item_name,R.id.list_item_addr,R.id.list_item_time,R.id.list_item_apply, R.id.list_item_desc} );
+				R.layout.view_order_list_item, new String[] { "name", "addr",
+						"createTime", "apply", "desc" }, new int[] {
+						R.id.list_item_name, R.id.list_item_addr,
+						R.id.list_item_time, R.id.list_item_apply,
+						R.id.list_item_desc });
 		orderList.setAdapter(sa);
-				
+
 		return true;
 	}
-	
 
 }

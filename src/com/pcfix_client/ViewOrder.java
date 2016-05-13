@@ -69,7 +69,7 @@ public Map<String, Object> toOrderMap(){
 	orderMap.put("createTime", createTime);
 	orderMap.put("desc", "问题描述:"+desc);
 	orderMap.put("apply", "申请人数:"+apply);
-	
+	orderMap.put("orderId", orderId);
 	return orderMap;
 }
 	
