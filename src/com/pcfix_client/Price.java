@@ -48,15 +48,16 @@ public class Price {
 		serverId = price.getInt("serverId");
 		this.price = price.getInt("price");
 		selected = price.getInt("selected");
+		id		= price.getInt("id");
 	
 	}
 public Map<String, Object> toPriceMap(){
 	Map<String, Object> orderMap = new HashMap<String, Object>();
-	orderMap.put("orderId", ""+orderId);
-	orderMap.put("serverId", ""+serverId);
+	orderMap.put("orderId", orderId);
+	orderMap.put("serverId", serverId);
 	orderMap.put("price", ""+price);
-	orderMap.put("selected", ""+selected);
-	
+	orderMap.put("selected", selected);
+	orderMap.put("id", id);
 	return orderMap;
 }
 }

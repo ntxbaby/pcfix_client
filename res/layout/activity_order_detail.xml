@@ -31,8 +31,24 @@
         android:layout_height="wrap_content"
         >
         
+   
         
     </ListView>
-    
+     <Button
+      android:id="@+id/order_detail_finish"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textColor="#f00"
+      android:visibility="invisible"
+      android:text="完成" />
+      
+    <Button
+      android:id="@+id/order_detail_ok"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textColor="#f00"
+      android:visibility="invisible"
+      android:text="确认" />  
+        
 
 </LinearLayout>

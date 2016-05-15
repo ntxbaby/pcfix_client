@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.pcfix_client.API;
+import com.pcfix_client.Applyer;
 import com.pcfix_client.HttpUtil;
 import com.pcfix_client.Order;
 import com.pcfix_client.Price;
@@ -38,6 +39,12 @@ public class OrderDetailActivity extends Activity {
 	TextView price;
 	TextView status;
 	ListView serverList;
+	//在处理中 状态下 server页面的完成按钮
+	Button btnFinish;
+	
+	//在验收 状态下  client页面的确认完成按钮
+	Button btnOk;
+	
 	SimpleAdapter sa;
 	List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 	SerializableMap serializableMap;
@@ -47,6 +54,7 @@ public class OrderDetailActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_order_detail);
+		//隐藏actionbar
 		final ActionBar actionBar = getActionBar();
 		actionBar.hide();
 
@@ -54,6 +62,10 @@ public class OrderDetailActivity extends Activity {
 		info = (TextView) findViewById(R.id.order_detail_info);
 		price = (TextView) findViewById(R.id.order_detail_price);
 		status = (TextView) findViewById(R.id.order_detail_state);
+		btnFinish = (Button) findViewById(R.id.order_detail_finish);
+		btnOk = (Button) findViewById(R.id.order_detail_ok);
+		
+		
 
 		mBundle = getIntent().getExtras();
 
@@ -64,67 +76,29 @@ public class OrderDetailActivity extends Activity {
 		text += "服务时间:" + mBundle.getString("serveTime") + "\n";
 		text += "创建时间:" + mBundle.getString("createTime") + "\n";
 		text += "描述:" + mBundle.getString("desc") + "\n";
+		
 		info.setText(text);
 		price.setText("订单价格:--");
 		status.setText("订单状态:" + mBundle.getString("status"));
 
-		// list = new ArrayList<Map<String, Object> >();
-		// //test data
-		// Map<String, Object> orderMap = new HashMap<String, Object>();
-		// orderMap.put("name", "维修员:成栋");
-		// orderMap.put("price", "出价:1000元");
-		// orderMap.put("time", "2016-05-01");
-		// orderMap.put("desc", "hard disk 坏了，請幫我修一下幫幫我");
-		// orderMap.put("problem", "10人申請");
-		// list.add(orderMap);
-		// list.add(orderMap);
-		// list.add(orderMap);
-		// list.add(orderMap);
-		// list.add(orderMap);
-		// list.add(orderMap);
-		// list.add(orderMap);
-		// list.add(orderMap);
-		// list.add(orderMap);
-		// list.add(orderMap);
-		// list.add(orderMap);
-
-		listMyOrder();
-		sa = new ServersSimpleAdapter(
-				this,
-				list,
-				R.layout.order_detail_server_list_item,
-				new String[] { "name", "price", "time" },
-				new int[] { R.id.detail_list_item_name,
-						R.id.detail_list_item_price, R.id.detail_list_item_time });
-		serverList.setAdapter(sa);
-
-	}
-
-	public List<Map<String, Object>> getData(JSONArray prices) {
-
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		for (int i = 0; i < prices.length(); i++) {
-
-			JSONObject price;
-			try {
-
-				price = prices.getJSONObject(i);
-				Price p = new Price();
-				p.fromJSONObject(price);
-				list.add(p.toPriceMap());
-
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
+		//普通用户，我的订单详情页，显示订单申请者列表，以便选择一个人处理
+		if (User.getInstance().getType() == 0) {
+			listApplyer();
+			sa = new ServersSimpleAdapter(this, list,
+					R.layout.order_detail_server_list_item, new String[] {
+							"serverName", "price", "serverId" }, new int[] {
+							R.id.detail_list_item_name,
+							R.id.detail_list_item_price,
+							R.id.detail_list_item_time });
+			serverList.setAdapter(sa);
 		}
-		return list;
+
 	}
+
 
 	String msg;
 
-	private boolean listMyOrder() {
+	private boolean listApplyer() {
 
 		Map<String, String> map = new HashMap<String, String>();
 		Log.d("DDDD", "listMyOrder111111111111");
@@ -134,15 +108,17 @@ public class OrderDetailActivity extends Activity {
 				"listMyOrder22222222222222\norderId="
 						+ mBundle.getInt("orderId"));
 		try {
+			
 			JSONObject json = new JSONObject(HttpUtil.postRequest(
-					API.LISTPRICE, map));
+					API.LIST_APPLYER, map));
 			Log.d("LISTMYORDER-json", json.toString());
 			if (json.getInt("result") == 0) {
-				JSONArray prices = json.getJSONArray("prices");
-
-				list = getData(prices);
+				
+				JSONArray ja = json.getJSONArray("applyers");
+				list = Applyer.toAdapterData(ja);
 
 				return true;
+				
 			} else {
 				switch (json.getInt("error")) {
 				case 300:
@@ -168,6 +144,7 @@ public class OrderDetailActivity extends Activity {
 		return true;
 	}
 
+	//申请这列表的adapter
 	private class ServersSimpleAdapter extends SimpleAdapter {
 
 		public ServersSimpleAdapter(Context context,
@@ -187,20 +164,70 @@ public class OrderDetailActivity extends Activity {
 			btn.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					// notifyDataSetChanged();
-					// info.setText("问题类型：cpu\n描述：cpu风扇不转\n处理方式：上面服务\n订单状态：处理中...");
-					price.setText("订单价格:100");
+					//price.setText("订单价格:100");
 					status.setText("订单状态：处理中...");
 					serverList.setVisibility(View.INVISIBLE);
+					
+					Map<String,Object> m = OrderDetailActivity.this.list.get((Integer)v.getTag());
+					int priceId = (Integer)m.get("id");
+					int orderId = (Integer)m.get("orderId");
+					int serverId = (Integer)m.get("serverId");
+					int pricevalue = (Integer)m.get("price");
+					
+					String text = "priceId=" + priceId;
+					text += "orderId=" + orderId;
+					text += "serverId=" + serverId;
+					
+					if(selectApplyer(priceId, orderId, serverId))
+					{
+						text+=" 成功";
+						//显示server的名字，price
+						price.setText("订单价格:"+pricevalue);
+					}
+					else
+					{
+						text+=" 失败";
+					}
+					
 					Toast.makeText(getApplicationContext(),
-							"订单详情页点击了" + v.getTag(), 1).show();
+							"订单详情页点击了" + text, 1).show();
+					
+					
 
 				}
 
 			});
 
 			return v;
+		}
+		
+		boolean selectApplyer(int priceId, int orderId, int serverId) {
+			
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("priceId", ""+priceId);
+			map.put("orderId", ""+orderId);
+			map.put("serverId", ""+serverId);
+			
+			try {
+				JSONObject json = new JSONObject(HttpUtil.postRequest(API.SELECTAPPLYER, map));
+				Log.d("ADDORDER-json", json.toString());
+				if(json.getInt("result") == 0)
+				{
+					return true;
+				}
+				else
+				{
+					msg = json.getInt("error") == 100 ? "用户已经存在" : "未知错误";
+					return false;
+				}
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return true;
 		}
 
 	}
