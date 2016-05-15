@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import com.pcfix_client.API;
 import com.pcfix_client.HttpUtil;
 import com.pcfix_client.Order;
+import com.pcfix_client.OrderInfo;
 import com.pcfix_client.ViewOrder;
 
 import android.app.Fragment;
@@ -110,15 +111,16 @@ public class ViewOrderFragment extends Fragment {
 
 		try {
 			JSONObject json = new JSONObject(HttpUtil.postRequest(
-					API.VIEWORDER, map));
-			Log.d("LISTORDER-json", json.toString());
+					API.LIST_ACTIVE_ORDERS, map));
+			Log.d("LIST_ACTIVE_ORDERS-json", json.toString());
+			
 			if (json.getInt("result") == 0) {
-				JSONArray orders = json.getJSONArray("orders");
+				JSONArray ja = json.getJSONArray("orderInfos");
 
-				data = getData(orders);
+				data = OrderInfo.toAdapterData(ja);
 				SimpleAdapter sa = new SimpleAdapter(getActivity(), data,
-						R.layout.view_order_list_item, new String[] { "name",
-								"addr", "createTime", "apply", "desc" },
+						R.layout.view_order_list_item, new String[] { "clientName",
+								"addr", "createTime", "applyerNum", "desc" },
 						new int[] { R.id.list_item_name, R.id.list_item_addr,
 								R.id.list_item_time, R.id.list_item_apply,
 								R.id.list_item_desc });
@@ -146,38 +148,6 @@ public class ViewOrderFragment extends Fragment {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		return true;
-	}
-
-	private boolean list(int i) {
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		// test data
-		Map<String, Object> orderMap = new HashMap<String, Object>();
-		orderMap.put("name", "成栋");
-		orderMap.put("addr", "地址:湖北武汉");
-		orderMap.put("createTime", "2016-05-01");
-		orderMap.put("desc", "hard disk 坏了，請幫我修一下幫幫我");
-		orderMap.put("apply", "10人申請");
-		list.add(orderMap);
-		list.add(orderMap);
-		list.add(orderMap);
-		list.add(orderMap);
-		list.add(orderMap);
-		list.add(orderMap);
-		list.add(orderMap);
-		list.add(orderMap);
-		list.add(orderMap);
-		list.add(orderMap);
-		list.add(orderMap);
-
-		SimpleAdapter sa = new SimpleAdapter(getActivity(), list,
-				R.layout.view_order_list_item, new String[] { "name", "addr",
-						"createTime", "apply", "desc" }, new int[] {
-						R.id.list_item_name, R.id.list_item_addr,
-						R.id.list_item_time, R.id.list_item_apply,
-						R.id.list_item_desc });
-		orderList.setAdapter(sa);
 
 		return true;
 	}

@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import com.pcfix_client.API;
 import com.pcfix_client.HttpUtil;
 import com.pcfix_client.Order;
+import com.pcfix_client.OrderInfo;
 import com.pcfix_client.SerializableMap;
 import com.pcfix_client.User;
 import com.pcfix_client.ViewOrder;
@@ -45,9 +46,11 @@ public class MyOrderFragment extends Fragment {
 				ViewGroup.LayoutParams.MATCH_PARENT,
 				ViewGroup.LayoutParams.MATCH_PARENT));
 
-		if(User.getInstance().getType() == 0)
-			{listMyOrder();}
-		else{listMyOrderServer();}
+		if (User.getInstance().getType() == 0) {
+			listClientOrders();
+		} else {
+			listServerOrders();
+		}
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -64,14 +67,14 @@ public class MyOrderFragment extends Fragment {
 				mBundle.putInt("clientId", (Integer) map.get("clientId"));
 				mBundle.putString("createTime", (String) map.get("createTime"));
 				mBundle.putString("desc", (String) map.get("desc"));
-				mBundle.putInt("mathod", (Integer) map.get("mathod"));
+				//mBundle.putInt("mathod", (Integer) map.get("mathod"));
 				mBundle.putInt("orderId", (Integer) map.get("orderId"));
 				mBundle.putString("phone", (String) map.get("phone"));
 				mBundle.putInt("priceId", (Integer) map.get("priceId"));
-				mBundle.putString("problem", (String) map.get("problem"));
+				mBundle.putInt("problem", (Integer) map.get("problem"));
 				mBundle.putString("serveTime", (String) map.get("serveTime"));
 				mBundle.putInt("serverId", (Integer) map.get("serverId"));
-				mBundle.putString("status", (String) map.get("status"));
+				mBundle.putInt("status", (Integer) map.get("status"));
 
 				intent.putExtras(mBundle);
 
@@ -84,20 +87,20 @@ public class MyOrderFragment extends Fragment {
 		return listView;
 	}
 
-	private boolean listMyOrder() {
+	private boolean listClientOrders() {
 
 		Map<String, String> map = new HashMap<String, String>();
 
-		map.put("order.clientId", "" + User.getInstance().getId());
+		map.put("clientId", "" + User.getInstance().getId());
 
 		try {
 			JSONObject json = new JSONObject(HttpUtil.postRequest(
-					API.LISTMYORDER, map));
-			Log.d("LISTMYORDER-json", json.toString());
+					API.LIST_CLIENT_ORDERS, map));
+			Log.d("LIST_CLIENT_ORDERS-json", json.toString());
 			if (json.getInt("result") == 0) {
-				JSONArray orders = json.getJSONArray("orders");
+				JSONArray ja = json.getJSONArray("orderInfos");
 
-				data = getData(orders, 0);
+				data = OrderInfo.toAdapterData(ja);
 				SimpleAdapter sa = new SimpleAdapter(getActivity(), data,
 						R.layout.my_order_list_item, new String[] { "status",
 								"createTime", "desc" }, new int[] {
@@ -131,20 +134,20 @@ public class MyOrderFragment extends Fragment {
 		return true;
 	}
 	
-	private boolean listMyOrderServer() {
+	private boolean listServerOrders() {
 
 		Map<String, String> map = new HashMap<String, String>();
 
-		map.put("price.serverId", "" + User.getInstance().getId());
+		map.put("serverId", "" + User.getInstance().getId());
 
 		try {
 			JSONObject json = new JSONObject(HttpUtil.postRequest(
-					API.MYORDERSERVER, map));
-			Log.d("MYORDERSERVER-json", json.toString());
+					API.LIST_SERVER_ORDERS, map));
+			Log.d("LIST_SERVER_ORDERS-json", json.toString());
 			if (json.getInt("result") == 0) {
-				JSONArray orders = json.getJSONArray("orders");
+				JSONArray ja = json.getJSONArray("orderInfos");
 
-				data = getData(orders, 1);
+				data = OrderInfo.toAdapterData(ja);
 				SimpleAdapter sa = new SimpleAdapter(getActivity(), data,
 						R.layout.my_order_list_item, new String[] { "status",
 								"createTime", "desc" }, new int[] {
@@ -176,28 +179,6 @@ public class MyOrderFragment extends Fragment {
 		}
 
 		return true;
-	}
-
-	public List<Map<String, Object>> getData(JSONArray orders, int client0server1) {
-
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		for (int i = 0; i < orders.length(); i++) {
-
-			JSONObject order;
-			try {
-
-				order = orders.getJSONObject(i);
-				Order o = new Order();
-				o.fromJSONObject(order);
-				list.add(client0server1 == 0 ? o.toOrderMap() : o.toOrderMapServer());
-
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-		}
-		return list;
 	}
 
 }

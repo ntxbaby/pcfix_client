@@ -13,6 +13,7 @@ import com.pcfix_client.API;
 import com.pcfix_client.Applyer;
 import com.pcfix_client.HttpUtil;
 import com.pcfix_client.Order;
+import com.pcfix_client.OrderInfo;
 import com.pcfix_client.Price;
 import com.pcfix_client.SerializableMap;
 import com.pcfix_client.User;
@@ -65,34 +66,27 @@ public class OrderDetailActivity extends Activity {
 		btnFinish = (Button) findViewById(R.id.order_detail_finish);
 		btnOk = (Button) findViewById(R.id.order_detail_ok);
 		
+		//btnFinish
+		btnFinish.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		btnOk.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		
 
-		mBundle = getIntent().getExtras();
-
-		String text = "地址:" + mBundle.getString("addr") + "\n";
-		text += "服务方式:" + mBundle.getInt("mathod") + "\n";
-		text += "联系方式:" + mBundle.getString("phone") + "\n";
-		text += "问题分类:" + mBundle.getString("problem") + "\n";
-		text += "服务时间:" + mBundle.getString("serveTime") + "\n";
-		text += "创建时间:" + mBundle.getString("createTime") + "\n";
-		text += "描述:" + mBundle.getString("desc") + "\n";
-		
-		info.setText(text);
-		price.setText("订单价格:--");
-		status.setText("订单状态:" + mBundle.getString("status"));
-
-		//普通用户，我的订单详情页，显示订单申请者列表，以便选择一个人处理
-		if (User.getInstance().getType() == 0) {
-			listApplyer();
-			sa = new ServersSimpleAdapter(this, list,
-					R.layout.order_detail_server_list_item, new String[] {
-							"serverName", "price", "serverId" }, new int[] {
-							R.id.detail_list_item_name,
-							R.id.detail_list_item_price,
-							R.id.detail_list_item_time });
-			serverList.setAdapter(sa);
-		}
-
+		refresh(false);
 	}
 
 
@@ -142,6 +136,74 @@ public class OrderDetailActivity extends Activity {
 		}
 
 		return true;
+	}
+	
+	//刷新页面
+	private void refresh(boolean isForce)
+	{
+		boolean isClient = User.getInstance().getType() == 0;
+		if(isForce)
+		{
+			//请求订单状态
+		}
+		mBundle = getIntent().getExtras();
+		String text = "地址:" + mBundle.getString("addr") + "\n";
+		text += "服务方式:" + mBundle.getInt("mathod") + "\n";
+		text += "联系方式:" + mBundle.getString("phone") + "\n";
+		text += "问题分类:" + mBundle.getString("problem") + "\n";
+		text += "服务时间:" + mBundle.getString("serveTime") + "\n";
+		text += "创建时间:" + mBundle.getString("createTime") + "\n";
+		text += "描述:" + mBundle.getString("desc") + "\n";
+		info.setText(text);
+		
+		int sta = mBundle.getInt("status");
+		status.setText("订单状态:" + OrderInfo.STATUS_STRING[sta]);
+		
+		listApplyer();
+		
+		if(isClient){
+			
+			if(sta == OrderInfo.STATUS_APPLY)
+			{
+				
+				price.setText("订单价格:--");
+				
+				sa = new ServersSimpleAdapter(this, list,
+						R.layout.order_detail_server_list_item, new String[] {
+								"serverName", "price", "serverId" }, new int[] {
+								R.id.detail_list_item_name,
+								R.id.detail_list_item_price,
+								R.id.detail_list_item_time });
+				serverList.setAdapter(sa);
+			}
+			else if(sta == OrderInfo.STATUS_DEAL){
+				price.setText("订单价格:"+list.get(0).get("price")+"\n维修者:"+list.get(0).get("serverName"));
+				serverList.setVisibility(View.INVISIBLE);
+			}
+			else if(sta == OrderInfo.STATUS_VARIFY){
+				price.setText("订单价格:"+list.get(0).get("price")+"\n维修者:"+list.get(0).get("serverName"));
+				serverList.setVisibility(View.INVISIBLE);
+				btnOk.setVisibility(View.VISIBLE);
+			}
+			
+		}
+		else
+		{
+			serverList.setVisibility(View.INVISIBLE);
+			
+			if(sta == OrderInfo.STATUS_APPLY)
+			{
+				
+			}
+			else if(sta == OrderInfo.STATUS_DEAL){
+				price.setText("订单价格:"+list.get(0).get("price")+"\n维修者:"+list.get(0).get("serverName"));
+				btnFinish.setVisibility(View.VISIBLE);
+			}
+			else if(sta == OrderInfo.STATUS_VARIFY){
+				price.setText("订单价格:"+list.get(0).get("price")+"\n维修者:"+list.get(0).get("serverName"));
+			}
+		}
+		
 	}
 
 	//申请这列表的adapter

@@ -86,10 +86,10 @@ public class Applyer {
 				Map<String, Object> m = new HashMap<String, Object>();
 				m.put("id", jo.getInt("id"));
 				m.put("orderId", jo.getInt("orderId"));
-				m.put("serverId", ""+jo.getInt("serverId"));
-				m.put("price", ""+jo.getInt("price"));
+				m.put("serverId", jo.getInt("serverId"));
+				m.put("price", jo.getInt("price"));
 				m.put("selected", jo.getInt("selected"));
-				m.put("serverName", ""+jo.getString("serverName"));
+				m.put("serverName", jo.getString("serverName"));
 				
 				list.add(m);
 
