@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import com.pcfix_client.API;
 import com.pcfix_client.Applyer;
+import com.pcfix_client.DataManager;
 import com.pcfix_client.HttpUtil;
 import com.pcfix_client.Order;
 import com.pcfix_client.OrderInfo;
@@ -36,6 +37,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class OrderDetailActivity extends Activity {
+	String msg;
 	TextView info;
 	TextView price;
 	TextView status;
@@ -50,6 +52,7 @@ public class OrderDetailActivity extends Activity {
 	List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 	SerializableMap serializableMap;
 	Bundle mBundle;
+	OrderInfo o = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +74,10 @@ public class OrderDetailActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
+				if(clickFinish())
+						{
+					refresh(true);
+						}
 			}
 		});
 		
@@ -80,8 +85,7 @@ public class OrderDetailActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
+				clickOk();
 			}
 		});
 		
@@ -90,17 +94,13 @@ public class OrderDetailActivity extends Activity {
 	}
 
 
-	String msg;
+	
 
 	private boolean listApplyer() {
 
 		Map<String, String> map = new HashMap<String, String>();
-		Log.d("DDDD", "listMyOrder111111111111");
-		map.put("price.orderId", "" + mBundle.getInt("orderId"));
+		map.put("price.orderId", "" + o.getOrderId());
 
-		Log.d("DDDD",
-				"listMyOrder22222222222222\norderId="
-						+ mBundle.getInt("orderId"));
 		try {
 			
 			JSONObject json = new JSONObject(HttpUtil.postRequest(
@@ -142,11 +142,31 @@ public class OrderDetailActivity extends Activity {
 	private void refresh(boolean isForce)
 	{
 		boolean isClient = User.getInstance().getType() == 0;
+		mBundle = getIntent().getExtras();
+		int pos = mBundle.getInt("pos");
 		if(isForce)
 		{
 			//请求订单状态
+			if(isClient)
+			{	
+				DataManager.getInstance().refreshClient();
+			}
+			else
+			{
+				DataManager.getInstance().refreshServer();
+			}
 		}
-		mBundle = getIntent().getExtras();
+		
+		
+		if(isClient)
+		{	
+			o = DataManager.getInstance().getClientOrderList().get(pos);
+		}
+		else
+		{
+			o = DataManager.getInstance().getServerOrderList().get(pos);
+		}
+		/*
 		String text = "地址:" + mBundle.getString("addr") + "\n";
 		text += "服务方式:" + mBundle.getInt("mathod") + "\n";
 		text += "联系方式:" + mBundle.getString("phone") + "\n";
@@ -156,9 +176,22 @@ public class OrderDetailActivity extends Activity {
 		text += "描述:" + mBundle.getString("desc") + "\n";
 		info.setText(text);
 		
+		
 		int sta = mBundle.getInt("status");
 		status.setText("订单状态:" + OrderInfo.STATUS_STRING[sta]);
+		*/
+		String text = "地址:" + o.getAddr() + "\n";
+		text += "服务方式:" + OrderInfo.MATHOD_STRING[o.getMathod()] + "\n";
+		text += "联系方式:" + o.getPhone() + "\n";
+		text += "问题分类:" + OrderInfo.PROBLEMS[o.getProblem()] + "\n";
+		text += "服务时间:" + o.getServeTime() + "\n";
+		text += "创建时间:" + o.getCreateTime() + "\n";
+		text += "问题描述:" + o.getDesc() + "\n";
+		info.setText(text);
 		
+		
+		int sta = o.getStatus();
+		status.setText("订单状态:" + OrderInfo.STATUS_STRING[sta]);
 		listApplyer();
 		
 		if(isClient){
@@ -201,6 +234,7 @@ public class OrderDetailActivity extends Activity {
 			}
 			else if(sta == OrderInfo.STATUS_VARIFY){
 				price.setText("订单价格:"+list.get(0).get("price")+"\n维修者:"+list.get(0).get("serverName"));
+				btnFinish.setVisibility(View.INVISIBLE);
 			}
 		}
 		
@@ -213,13 +247,11 @@ public class OrderDetailActivity extends Activity {
 				List<? extends Map<String, ?>> data, int resource,
 				String[] from, int[] to) {
 			super(context, data, resource, from, to);
-			// TODO Auto-generated constructor stub
 		}
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 
-			// TODO Auto-generated method stub
 			View v = super.getView(position, convertView, parent);
 			Button btn = (Button) v.findViewById(R.id.detail_list_item_select);
 			btn.setTag(position);
@@ -244,7 +276,8 @@ public class OrderDetailActivity extends Activity {
 					{
 						text+=" 成功";
 						//显示server的名字，price
-						price.setText("订单价格:"+pricevalue);
+						//price.setText("订单价格:"+pricevalue);
+						refresh(true);
 					}
 					else
 					{
@@ -283,10 +316,8 @@ public class OrderDetailActivity extends Activity {
 					return false;
 				}
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return true;
@@ -296,8 +327,58 @@ public class OrderDetailActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.order_detail, menu);
+		return true;
+	}
+	
+	//维修者点“完成” 调用
+	public boolean clickFinish(){
+		Map<String, String> map = new HashMap<String, String>();
+		
+		map.put("orderId", ""+o.getOrderId());
+		
+		try {
+			JSONObject json = new JSONObject(HttpUtil.postRequest(API.FINISH, map));
+			Log.d("FINISH-json", json.toString());
+			if(json.getInt("result") == 0)
+			{
+				return true;
+			}
+			else
+			{
+				msg = json.getInt("error") == 100 ? "用户已经存在" : "未知错误";
+				return false;
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+	
+	//客户点“确认完成” 调用
+	public boolean clickOk(){
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("orderId", ""+o.getOrderId());
+		
+		try {
+			JSONObject json = new JSONObject(HttpUtil.postRequest(API.OK, map));
+			Log.d("OK-json", json.toString());
+			if(json.getInt("result") == 0)
+			{
+				return true;
+			}
+			else
+			{
+				msg = json.getInt("error") == 100 ? "用户已经存在" : "未知错误";
+				return false;
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return true;
 	}
 

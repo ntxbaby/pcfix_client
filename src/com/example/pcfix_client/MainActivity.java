@@ -1,5 +1,7 @@
 package com.example.pcfix_client;
 
+import com.pcfix_client.User;
+
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
@@ -10,11 +12,13 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 public class MainActivity extends Activity implements ActionBar.TabListener {
-
+	Fragment fragment = null;
+	int mIndex = 0;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -42,7 +46,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 		// TODO Auto-generated method stub
 
 		Log.d("fix", "" + tab.getPosition());
-		Fragment fragment = null;
+		
 		switch (tab.getPosition()) {
 		case 0:
 			fragment = new ViewOrderFragment();
@@ -87,7 +91,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
-		
+		menu.getItem(0).setVisible(User.getInstance().getType() == 0);
 		return true;
 	}
 
@@ -117,6 +121,20 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 		{
 			
 			Toast.makeText(this, "Ë¢ÐÂ", Toast.LENGTH_LONG).show();
+			if (fragment instanceof ViewOrderFragment) {
+				ViewOrderFragment vf = (ViewOrderFragment) fragment;
+				vf.list1();
+			}
+			else if( fragment instanceof MyOrderFragment)
+			{
+				MyOrderFragment mf = (MyOrderFragment) fragment;
+				mf.refresh();
+			}
+			else if( fragment instanceof HistoryOrderFragment)
+			{
+				HistoryOrderFragment hf = (HistoryOrderFragment) fragment;
+				hf.refresh();
+			}
 			break;
 		}
 			

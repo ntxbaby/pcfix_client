@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.pcfix_client.API;
+import com.pcfix_client.DataManager;
 import com.pcfix_client.HttpUtil;
 import com.pcfix_client.Order;
 import com.pcfix_client.OrderInfo;
@@ -37,15 +38,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 public class ViewOrderFragment extends Fragment {
-
+	String msg;
 	ListView orderList;
 	private List<Map<String, Object>> data;
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		// return super.onCreateView(inflater, container, savedInstanceState);
 		View view = inflater.inflate(R.layout.view_order, container, false);
 		orderList = (ListView) view.findViewById(R.id.view_order_list);
 
@@ -76,34 +75,10 @@ public class ViewOrderFragment extends Fragment {
 
 		});
 
-		list();
+		list1();
 
 		return view;
 	}
-
-	public static List<Map<String, Object>> getData(JSONArray orders) {
-
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		for (int i = 0; i < orders.length(); i++) {
-
-			JSONObject order;
-			try {
-
-				order = orders.getJSONObject(i);
-				ViewOrder o = new ViewOrder();
-				o.fromJSONObject(order);
-				list.add(o.toOrderMap());
-
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-		}
-		return list;
-	}
-
-	String msg;
 
 	private boolean list() {
 
@@ -113,15 +88,16 @@ public class ViewOrderFragment extends Fragment {
 			JSONObject json = new JSONObject(HttpUtil.postRequest(
 					API.LIST_ACTIVE_ORDERS, map));
 			Log.d("LIST_ACTIVE_ORDERS-json", json.toString());
-			
+
 			if (json.getInt("result") == 0) {
 				JSONArray ja = json.getJSONArray("orderInfos");
 
 				data = OrderInfo.toAdapterData(ja);
 				SimpleAdapter sa = new SimpleAdapter(getActivity(), data,
-						R.layout.view_order_list_item, new String[] { "clientName",
-								"addr", "createTime", "applyerNum", "desc" },
-						new int[] { R.id.list_item_name, R.id.list_item_addr,
+						R.layout.view_order_list_item, new String[] {
+								"clientName", "addr", "createTime",
+								"applyerNum", "desc" }, new int[] {
+								R.id.list_item_name, R.id.list_item_addr,
 								R.id.list_item_time, R.id.list_item_apply,
 								R.id.list_item_desc });
 				orderList.setAdapter(sa);
@@ -150,6 +126,38 @@ public class ViewOrderFragment extends Fragment {
 		}
 
 		return true;
+	}
+
+	public boolean list1() {
+
+		int ret = DataManager.getInstance().refreshActive();
+		if (ret == 0) {
+
+			data = DataManager.getInstance().getActiveOrderMap();
+			SimpleAdapter sa = new SimpleAdapter(getActivity(), data,
+					R.layout.view_order_list_item, new String[] { "clientName",
+							"addr", "createTime", "applyerNum", "desc" },
+					new int[] { R.id.list_item_name, R.id.list_item_addr,
+							R.id.list_item_time, R.id.list_item_apply,
+							R.id.list_item_desc });
+			orderList.setAdapter(sa);
+
+			return true;
+		} else {
+			switch (ret) {
+			case 300:
+				msg = "¶©µ¥²»´æÔÚ";
+				break;
+			case 301:
+				msg = "µÇÂ½ÓÃ»§ÃÜÂë´íÎó";
+				break;
+			default:
+				break;
+			}
+
+			return false;
+		}
+
 	}
 
 }

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.pcfix_client.DataManager;
+
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,15 +16,17 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 public class HistoryOrderFragment extends Fragment {
-	@Override
+	ListView listView;
+	List<Map<String, Object> > list;
+	String msg;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		ListView listView = new ListView(getActivity()); 
+		listView = new ListView(getActivity()); 
 		listView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
 				ViewGroup.LayoutParams.MATCH_PARENT));
 		
-		
+		/*
 		List<Map<String, Object> > list = new ArrayList<Map<String, Object> >();
 		//test data
 		Map<String, Object> orderMap = new HashMap<String, Object>();
@@ -49,8 +53,40 @@ public class HistoryOrderFragment extends Fragment {
 				new String[]{"name","createTime", "desc", "comment"},
                 new int[]{R.id.list_item_name,R.id.list_item_time, R.id.list_item_desc,R.id.list_item_comment} );
 		listView.setAdapter(sa);
-		
+		*/
+		refresh();
 		return listView;
+	}
+	
+	public boolean refresh()
+	{
+			int ret = DataManager.getInstance().refreshHistory();
+			if (ret == 0) {
+
+				list = DataManager.getInstance().getHisOrderMap();
+				SimpleAdapter sa = new SimpleAdapter(getActivity(), list,
+						R.layout.history_order_list_item, 
+						new String[]{"clientName","finishType", "desc", "comment"},
+		                new int[]{R.id.list_item_name,R.id.list_item_time, R.id.list_item_desc,R.id.list_item_comment} );
+				listView.setAdapter(sa);
+
+				return true;
+			} else {
+				switch (ret) {
+				case 300:
+					msg = "订单不存在";
+					break;
+				case 301:
+					msg = "登陆用户密码错误";
+					break;
+				default:
+					break;
+				}
+
+				return false;
+			}
+
+		
 	}
 
 }
