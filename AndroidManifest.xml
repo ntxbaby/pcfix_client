@@ -44,8 +44,11 @@
             android:name="com.example.pcfix_client.OrderDetailActivity"
             android:label="@string/title_activity_order_detail" >
         </activity>
+        <activity android:name="com.example.pcfix_client.ViewOrderDetailActivity" >
+        </activity>
         <activity
-            android:name="com.example.pcfix_client.ViewOrderDetailActivity">
+            android:name="com.example.pcfix_client.AdminActivity"
+            android:label="@string/title_activity_admin" >
         </activity>
     </application>
 

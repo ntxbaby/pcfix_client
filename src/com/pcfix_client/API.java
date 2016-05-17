@@ -16,6 +16,9 @@ public class API {
 	public static final String LIST_CLIENT_ORDERS = BASE_URL + "list_client_orders";
 	public static final String LIST_SERVER_ORDERS = BASE_URL + "list_server_orders";
 	public static final String LIST_HIS_ORDERS = BASE_URL + "list_his_orders";
+	public static final String LIST_USER = BASE_URL + "list_user";
+	public static final String DELETE_USER = BASE_URL + "delete_user";
+	public static final String DELETE_ORDER = BASE_URL + "delete_order";
 	public static final String FINISH = BASE_URL + "finish";
 	public static final String OK = BASE_URL + "ok";
 	public static final String [] STATES = new String[]{"竞价中...", "处理中...", "完成", "过期"};

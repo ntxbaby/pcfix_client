@@ -29,6 +29,7 @@ public class LoginActivity extends Activity {
 	Button btnLogin, btnCancel, btnRegister;
 	RadioGroup rg;
 	String msg;
+	String name;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,12 @@ public class LoginActivity extends Activity {
 		if(validate()){
 			if(loginPro()){
 				Toast.makeText(this, "¹§Ï²Äú£¬µÇÂ½³É¹¦£¡", Toast.LENGTH_LONG).show();
-				Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+				Intent intent = null;
+				if (!name.equals("admin")) {
+					intent = new Intent(LoginActivity.this, MainActivity.class);
+				} else {
+					intent = new Intent(LoginActivity.this, AdminActivity.class);
+				}
 				startActivity(intent);
 			}else{
 				Toast.makeText(this, "¶Ô²»Æð£¬µÇÂ½Ê§°Ü£¡" + msg, Toast.LENGTH_LONG).show();
@@ -70,7 +76,7 @@ public class LoginActivity extends Activity {
 	private boolean loginPro(){
 	
 		String type = rg.getCheckedRadioButtonId() == R.id.login_client ? "0" : "1";
-		String name = editName.getText().toString();
+		name = editName.getText().toString();
 		String pwd = editPwd.getText().toString();
 		
 		StringBuilder sb = new StringBuilder();

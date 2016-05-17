@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity implements ActionBar.TabListener {
 	Fragment fragment = null;
-	int mIndex = 0;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

@@ -1,8 +1,11 @@
 package com.pcfix_client;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -88,6 +91,23 @@ public class User {
 		userMap.put("addr", addr);
 		userMap.put("star", star);
 		return userMap;
+	}
+	
+	public static List<User> toUserInfo(JSONArray ja){
+		List<User> list = new ArrayList<User>();
+		for (int i = 0; i < ja.length(); i++) {
+			
+			
+			try {
+				JSONObject jo = ja.getJSONObject(i);
+				list.add( User.fromJSONObject(jo)) ;
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+		return list;
 	}
 
 }

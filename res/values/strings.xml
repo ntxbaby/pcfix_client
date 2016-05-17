@@ -22,5 +22,6 @@
 
     <string name="title_activity_setting">SettingActivity</string>
     <string name="title_activity_order_detail">OrderDetailActivity</string>
+    <string name="title_activity_admin">AdminActivity</string>
 
 </resources>

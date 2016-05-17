@@ -35,6 +35,10 @@ public class DataManager {
 	private List<HistoryOrder> hisOrderList;
 	private List<Map<String, Object>> hisOrderMap;
 	
+	private List<User> userList;
+	//private List<Map<String, Object>> hisOrderMap;
+	
+	
 
 	public List<OrderInfo> getActiveOrderList() {
 		return activeOrderList;
@@ -73,6 +77,16 @@ public class DataManager {
 
 	public List<Map<String, Object>> getHisOrderMap() {
 		return hisOrderMap;
+	}
+
+
+	public List<User> getUserList() {
+		return userList;
+	}
+
+
+	public void setUserList(List<User> userList) {
+		this.userList = userList;
 	}
 
 
@@ -186,6 +200,89 @@ public class DataManager {
 
 				hisOrderMap = HistoryOrder.toAdapterData(ja);
 				hisOrderList = HistoryOrder.toOrderInfo(ja);
+				return 0;
+			} else {
+				return json.getInt("error");
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
+	
+	
+	public int refreshUser() {
+
+		Map<String, String> map = new HashMap<String, String>();
+
+		map.put("user.name", "" + "admin");
+
+		try {
+			JSONObject json = new JSONObject(HttpUtil.postRequest(
+					API.LIST_USER, map));
+			Log.d("LIST_USER-json", json.toString());
+			if (json.getInt("result") == 0) {
+				JSONArray ja = json.getJSONArray("users");
+
+				//hisOrderMap = HistoryOrder.toAdapterData(ja);
+				userList = User.toUserInfo(ja);
+				return 0;
+			} else {
+				return json.getInt("error");
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
+	
+	public int deleteUser(int userId) {
+
+		Map<String, String> map = new HashMap<String, String>();
+
+		map.put("user.id", "" + userId);
+
+		try {
+			JSONObject json = new JSONObject(HttpUtil.postRequest(
+					API.DELETE_USER, map));
+			Log.d("DELETE_USER-json", json.toString());
+			if (json.getInt("result") == 0) {
+				return 0;
+			} else {
+				return json.getInt("error");
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
+	
+	public int deleteOrder(int orderId) {
+
+		Map<String, String> map = new HashMap<String, String>();
+
+		map.put("order.orderId", "" + orderId);
+
+		try {
+			JSONObject json = new JSONObject(HttpUtil.postRequest(
+					API.DELETE_ORDER, map));
+			Log.d("DELETE_ORDER-json", json.toString());
+			if (json.getInt("result") == 0) {
 				return 0;
 			} else {
 				return json.getInt("error");
