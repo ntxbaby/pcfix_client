@@ -30,11 +30,11 @@ public class HistoryOrderFragment extends Fragment {
 		List<Map<String, Object> > list = new ArrayList<Map<String, Object> >();
 		//test data
 		Map<String, Object> orderMap = new HashMap<String, Object>();
-		orderMap.put("name", "Î¬ĞŞÔ±Ãû×Ö");
-		orderMap.put("comment", "ÆÀÂÛ:Õâ¸öÊ¦¸µµÄ¼¼ÊõºÜÅ£±Æ£¬ÉÔÎ¢¿´ÁËÒ»ÏÂ£¬ºÜ¿ì¾ÍÕÒµ½ÁËÎÊÌâ");
+		orderMap.put("name", "ç»´ä¿®å‘˜åå­—");
+		orderMap.put("comment", "è¯„è®º:è¿™ä¸ªå¸ˆå‚…çš„æŠ€æœ¯å¾ˆç‰›é€¼ï¼Œç¨å¾®çœ‹äº†ä¸€ä¸‹ï¼Œå¾ˆå¿«å°±æ‰¾åˆ°äº†é—®é¢˜");
 		orderMap.put("createTime", "2016-05-01");
-		orderMap.put("desc", "ÃèÊö:ÎÒµÄµçÄÔÎŞ·¨¿ª»ú£¬µçÄÔÆô¶¯ºó½øĞĞ´ÅÅÌ×Ô¼ì£¬È»ºó¿¨×¡");
-		orderMap.put("problem", "10ÈËÉêÕˆ");
+		orderMap.put("desc", "æè¿°:æˆ‘çš„ç”µè„‘æ— æ³•å¼€æœºï¼Œç”µè„‘å¯åŠ¨åè¿›è¡Œç£ç›˜è‡ªæ£€ï¼Œç„¶åå¡ä½");
+		orderMap.put("problem", "10äººç”³è«‹");
 		list.add(orderMap);
 		list.add(orderMap);
 		list.add(orderMap);
@@ -74,10 +74,10 @@ public class HistoryOrderFragment extends Fragment {
 			} else {
 				switch (ret) {
 				case 300:
-					msg = "¶©µ¥²»´æÔÚ";
+					msg = "è®¢å•ä¸å­˜åœ¨";
 					break;
 				case 301:
-					msg = "µÇÂ½ÓÃ»§ÃÜÂë´íÎó";
+					msg = "ç™»é™†ç”¨æˆ·å¯†ç é”™è¯¯";
 					break;
 				default:
 					break;

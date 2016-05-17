@@ -51,13 +51,13 @@ public class RegisterActivity extends Activity {
 	public void onRegister(View v) {
 		// TODO Auto-generated method stub
 		if(register()){
-			Toast.makeText(this, "¹§Ï²Äú£¬×¢²á³É¹¦£¡", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, "æ­å–œæ‚¨ï¼Œæ³¨å†ŒæˆåŠŸï¼", Toast.LENGTH_LONG).show();
 			
 			Intent intent = new Intent(this, LoginActivity.class);
 			startActivity(intent);
 		}
 		else{
-			Toast.makeText(this, "¶Ô²»Æğ£¬×¢²áÊ§°Ü£¡" + msg, Toast.LENGTH_LONG).show();
+			Toast.makeText(this, "å¯¹ä¸èµ·ï¼Œæ³¨å†Œå¤±è´¥ï¼" + msg, Toast.LENGTH_LONG).show();
 			((TextView)findViewById(R.id.register_error)).setText(msg);
 		}
 		
@@ -94,7 +94,7 @@ public class RegisterActivity extends Activity {
 			}
 			else
 			{
-				msg = json.getInt("error") == 100 ? "ÓÃ»§ÒÑ¾­´æÔÚ" : "Î´Öª´íÎó";
+				msg = json.getInt("error") == 100 ? "ç”¨æˆ·å·²ç»å­˜åœ¨" : "æœªçŸ¥é”™è¯¯";
 				return false;
 			}
 		} catch (JSONException e) {

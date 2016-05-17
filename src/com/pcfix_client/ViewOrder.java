@@ -64,11 +64,11 @@ public class ViewOrder {
 }
 public Map<String, Object> toOrderMap(){
 	Map<String, Object> orderMap = new HashMap<String, Object>();
-	orderMap.put("addr", "µØÖ·:"+addr);
-	orderMap.put("name", "ÇóÖúÕß:"+name);
+	orderMap.put("addr", "åœ°å€:"+addr);
+	orderMap.put("name", "æ±‚åŠ©è€…:"+name);
 	orderMap.put("createTime", createTime);
-	orderMap.put("desc", "ÎÊÌâÃèÊö:"+desc);
-	orderMap.put("apply", "ÉêÇëÈËÊı:"+apply);
+	orderMap.put("desc", "é—®é¢˜æè¿°:"+desc);
+	orderMap.put("apply", "ç”³è¯·äººæ•°:"+apply);
 	orderMap.put("orderId", orderId);
 	return orderMap;
 }

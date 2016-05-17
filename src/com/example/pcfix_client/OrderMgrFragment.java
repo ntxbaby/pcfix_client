@@ -84,7 +84,7 @@ public class OrderMgrFragment extends Fragment {
 			}
 		}
 		refresh();
-		Toast.makeText(getActivity(), "¹´Ñ¡ÁË:" + listView.getCheckedItemCount(),
+		Toast.makeText(getActivity(), "å‹¾é€‰äº†" + listView.getCheckedItemCount(),
 				Toast.LENGTH_LONG).show();
 
 	}
@@ -108,10 +108,10 @@ public class OrderMgrFragment extends Fragment {
 		} else {
 			switch (ret) {
 			case 300:
-				msg = "¶©µ¥²»´æÔÚ";
+				msg = "msg = è®¢å•ä¸å­˜åœ¨";
 				break;
 			case 301:
-				msg = "µÇÂ½ÓÃ»§ÃÜÂë´íÎó";
+				msg = "ç™»é™†ç”¨æˆ·å¯†ç é”™è¯¯";
 				break;
 			default:
 				break;

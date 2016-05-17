@@ -55,11 +55,11 @@ public class ViewOrderDetailActivity extends Activity {
 
 		String text = mBundle.getString("addr") + "\n";
 		text += mBundle.getString("name") + "\n";
-		text += "´´½¨Ê±¼ä:" + mBundle.getString("createTime") + "\n";
+		text += "åˆ›å»ºæ—¶é—´:" + mBundle.getString("createTime") + "\n";
 		text += mBundle.getString("desc") + "\n";
 		text += mBundle.getString("apply") + "\n";
 		info.setText(text);
-		// Èç¹ûÊÇÎ¬ĞŞÓÃ»§
+		// å¦‚æœæ˜¯ç»´ä¿®ç”¨æˆ·
 		if (User.getInstance().getType() == 1) {
 			apply.setVisibility(View.VISIBLE);
 			price.setVisibility(View.VISIBLE);
@@ -71,9 +71,9 @@ public class ViewOrderDetailActivity extends Activity {
 					int orderId = mBundle.getInt("orderId");
 					String m = "orderId:" + orderId;
 					if (apply(orderId)) {
-						m = m + " ÉêÇë³É¹¦!";
+						m = m + " ç”³è¯·æˆåŠŸ!";
 					} else {
-						m = m + " ÉêÇëÊ§°Ü!";
+						m = m + " ç”³è¯·å¤±è´¥!";
 					}
 					Toast.makeText(ViewOrderDetailActivity.this,
 							m, Toast.LENGTH_SHORT).show();
@@ -106,10 +106,10 @@ public class ViewOrderDetailActivity extends Activity {
 			} else {
 				switch (json.getInt("error")) {
 				case 300:
-					msg = "¶©µ¥²»´æÔÚ";
+					msg = "è®¢å•ä¸å­˜åœ¨";
 					break;
 				case 301:
-					msg = "µÇÂ½ÓÃ»§ÃÜÂë´íÎó";
+					msg = "ç™»é™†ç”¨æˆ·å¯†ç é”™è¯¯";
 					break;
 				default:
 					break;

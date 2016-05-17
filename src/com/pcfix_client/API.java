@@ -21,8 +21,7 @@ public class API {
 	public static final String DELETE_ORDER = BASE_URL + "delete_order";
 	public static final String FINISH = BASE_URL + "finish";
 	public static final String OK = BASE_URL + "ok";
-	public static final String [] STATES = new String[]{"¾º¼ÛÖĞ...", "´¦ÀíÖĞ...", "Íê³É", "¹ıÆÚ"};
-	public static final String [] STATES_SERVER = new String[]{"ÉêÇëÖĞ...", "´¦ÀíÖĞ...", "Íê³É", "¹ıÆÚ"};
-	public static final String [] PROBLEMS = new String[]{"cpu","ÄÚ´æ","ÏÔ¿¨","Ó²ÅÌ","ÏÔÊ¾Æ÷","¼üÅÌ","Êó±ê"};
-	
+	public static final String [] STATES = new String[]{"ç«ä»·ä¸­...", "å¤„ç†ä¸­...", "å®Œæˆ", "è¿‡æœŸ"};
+	public static final String [] STATES_SERVER = new String[]{"ç”³è¯·ä¸­...", "å¤„ç†ä¸­...", "å®Œæˆ", "è¿‡æœŸ"};
+	public static final String [] PROBLEMS = new String[]{"cpu","å†…å­˜","æ˜¾å¡","ç¡¬ç›˜","æ˜¾ç¤ºå™¨","é”®ç›˜","é¼ æ ‡"};
 }

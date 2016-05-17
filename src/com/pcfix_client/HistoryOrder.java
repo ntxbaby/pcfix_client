@@ -15,7 +15,7 @@ import org.json.JSONObject;
 public class HistoryOrder {
 	
 	private int hisOrderId;
-	//orderĞÅÏ¢
+	//orderä¿¡æ¯
 	private int orderId;
 	private String desc;
 	private String phone;
@@ -29,15 +29,15 @@ public class HistoryOrder {
 	private int clientId;
 	private String clientName;
 	
-	//Î¬ĞŞĞÅÏ¢
+	//ç»´ä¿®ä¿¡æ¯
 	private int serverId;
 	private String serverName;
 	private int price;
-	//Íê³ÉÀàĞÍ
+	//å®Œæˆç±»å‹
 	private int finishType;
 	//private Date finishTime;
 	private String finishTime;
-	//ÆÀÂÛ
+	//è¯„è®º
 	private String comment;
 	
 	public static final int STATUS_APPLY = 0;
@@ -45,10 +45,10 @@ public class HistoryOrder {
 	public static final int STATUS_VARIFY = 2;
 	public static final int STATUS_FINISH = 3;
 	public static final int STATUS_TIMEOUT = 4;
-	//Íê³ÉÀàĞÍ
+	//å®Œæˆç±»å‹
 	public static final int FINISH_TYPE_FINISH = 0;
 	public static final int FINISH_TYPE_TIMEOUT = 1;
-	public static String [] FINISH_TYPE_STRING = new String [] {"Íê³É", "¹ıÆÚ"};
+	public static String [] FINISH_TYPE_STRING = new String [] {"å®Œæˆ", "è¿‡æœŸ"};
 
 	public int getHisOrderId() {
 		return hisOrderId;
@@ -167,7 +167,7 @@ public class HistoryOrder {
 				
 				m.put("hisOrderId", jo.getInt("hisOrderId"));
 				m.put("orderId", jo.getInt("orderId"));
-				m.put("desc", "ÎÊÌâÃèÊö:"+jo.getString("desc"));
+				m.put("desc", "é—®é¢˜æè¿°:"+jo.getString("desc"));
 				m.put("phone", jo.getString("phone"));
 				m.put("addr", jo.getString("addr"));
 				m.put("createTime", jo.getString("createTime"));
@@ -175,13 +175,13 @@ public class HistoryOrder {
 				m.put("mathod", jo.getInt("mathod"));
 				m.put("problem", jo.getInt("problem"));
 				m.put("clientId", jo.getInt("clientId"));
-				m.put("clientName", "ÇóÖúÕß:"+jo.getString("clientName"));
+				m.put("clientName", "æ±‚åŠ©è€…:"+jo.getString("clientName"));
 				m.put("serverId", jo.getInt("serverId"));
 				m.put("serverName", jo.getString("serverName"));
 				m.put("price", jo.getInt("price"));
-				m.put("finishType", "½áÊø×´Ì¬:"+HistoryOrder.FINISH_TYPE_STRING[jo.getInt("finishType")]);
+				m.put("finishType", "ç»“æŸçŠ¶æ€:"+HistoryOrder.FINISH_TYPE_STRING[jo.getInt("finishType")]);
 				m.put("finishTime", jo.getString("finishTime"));
-				m.put("comment", jo.getString("comment")=="null" ? "ÆÀÂÛ:ÔİÎŞÆÀÂÛ" : "ÆÀÂÛ:"+jo.getString("comment")); 
+				m.put("comment", jo.getString("comment")=="null" ? "è¯„è®º:æš‚æ— è¯„è®º" : "è¯„è®º:"+jo.getString("comment")); 
 				
 				list.add(m);
 

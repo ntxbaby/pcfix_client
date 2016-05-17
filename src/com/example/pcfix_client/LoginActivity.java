@@ -49,7 +49,7 @@ public class LoginActivity extends Activity {
 		// TODO Auto-generated method stub
 		if(validate()){
 			if(loginPro()){
-				Toast.makeText(this, "¹§Ï²Äú£¬µÇÂ½³É¹¦£¡", Toast.LENGTH_LONG).show();
+				Toast.makeText(this, "æ­å–œæ‚¨ï¼Œç™»é™†æˆåŠŸï¼", Toast.LENGTH_LONG).show();
 				Intent intent = null;
 				if (!name.equals("admin")) {
 					intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -58,7 +58,7 @@ public class LoginActivity extends Activity {
 				}
 				startActivity(intent);
 			}else{
-				Toast.makeText(this, "¶Ô²»Æğ£¬µÇÂ½Ê§°Ü£¡" + msg, Toast.LENGTH_LONG).show();
+				Toast.makeText(this, "å¯¹ä¸èµ·ï¼Œç™»é™†å¤±è´¥ï¼" + msg, Toast.LENGTH_LONG).show();
 			}
 		}
 	}
@@ -104,13 +104,13 @@ public class LoginActivity extends Activity {
 			{
 				switch (json.getInt("error")) {
 				case 200:
-					msg = "µÇÂ½ÓÃ»§²»´æÔÚ";
+					msg = "ç™»é™†ç”¨æˆ·ä¸å­˜åœ¨";
 					break;
 				case 201:
-					msg = "µÇÂ½ÓÃ»§ÃÜÂë´íÎó";	
+					msg = "ç™»é™†ç”¨æˆ·å¯†ç é”™è¯¯";	
 					break;
 				case 202:
-					msg = "µÇÂ½ÓÃ»§ÀàĞÍ´íÎó";
+					msg = "ç™»é™†ç”¨æˆ·ç±»å‹é”™è¯¯";
 					break;
 
 				default:

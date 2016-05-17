@@ -58,7 +58,7 @@ public class AddOrderActivity extends Activity {
 		final ActionBar actionBar = getActionBar();
 		actionBar.setDisplayShowHomeEnabled(false);
 		actionBar.setDisplayShowTitleEnabled(true);
-		actionBar.setTitle("Ìí¼Ó¶©µ¥");
+		actionBar.setTitle("æ·»åŠ è®¢å•");
 		//actionBar.setHomeButtonEnabled(true);
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		
@@ -104,7 +104,7 @@ private boolean submit(){
 			}
 			else
 			{
-				msg = json.getInt("error") == 100 ? "ÓÃ»§ÒÑ¾­´æÔÚ" : "Î´Öª´íÎó";
+				msg = json.getInt("error") == 100 ? "ç”¨æˆ·å·²ç»å­˜åœ¨" : "æœªçŸ¥é”™è¯¯";
 				return false;
 			}
 		} catch (JSONException e) {
@@ -120,7 +120,7 @@ private boolean submit(){
 	public void onSubmit(View v) {
 		
 		if (submit()) {
-			Toast.makeText(this, "Ìá½»³É¹¦£¡", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, "æäº¤æˆåŠŸï¼", Toast.LENGTH_LONG).show();
 			
 //			Fragment fragment = null;
 //			
@@ -131,7 +131,7 @@ private boolean submit(){
 			finish();
 			
 		}else{
-			Toast.makeText(this, "Ìá½»Ê§°Ü£¡" + msg, Toast.LENGTH_LONG).show();
+			Toast.makeText(this, "æäº¤å¤±è´¥ï¼" + msg, Toast.LENGTH_LONG).show();
 		}
 	}
 

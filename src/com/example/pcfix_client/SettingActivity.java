@@ -15,7 +15,7 @@ public class SettingActivity extends Activity {
 		final ActionBar actionBar = getActionBar();
 				actionBar.setDisplayShowHomeEnabled(false);
 				actionBar.setDisplayShowTitleEnabled(true);
-				actionBar.setTitle("ĞŞ¸ÄÃÜÂë");
+				actionBar.setTitle("ä¿®æ”¹å¯†ç ");
 				//actionBar.setHomeButtonEnabled(true);
 				actionBar.setDisplayHomeAsUpEnabled(true);
 	}

@@ -26,12 +26,12 @@ public class OrderInfo {
 	private String clientName;
 	private int priceId;
 	private int status;
-	//ÉêÇëÕß(·şÎñÕß)ĞÅÏ¢
+	//ç”³è¯·è€…(æœåŠ¡è€…)ä¿¡æ¯
 	private int serverId;
 	private String serverName;
 	private int price;
 	private int selected;
-	//ÉêÇëÕß¸öÊı
+	//ç”³è¯·è€…ä¸ªæ•°
 	private BigInteger applyerNum;
 
 
@@ -186,22 +186,22 @@ public class OrderInfo {
 				Map<String, Object> m = new HashMap<String, Object>();
 				
 				m.put("orderId", jo.getInt("orderId"));
-				m.put("desc", "ÎÊÌâÃèÊö:"+jo.getString("desc"));
+				m.put("desc", "é—®é¢˜æè¿°:"+jo.getString("desc"));
 				m.put("phone", jo.getString("phone"));
-				m.put("addr", "µØÖ·:"+jo.getString("addr"));
+				m.put("addr", "åœ°å€:"+jo.getString("addr"));
 				m.put("createTime", jo.getString("createTime"));
 				m.put("serveTime", jo.getString("serveTime"));
 				m.put("mathod", jo.getInt("mathod"));
 				m.put("problem", jo.getInt("problem"));
 				m.put("clientId", jo.getInt("clientId"));
-				m.put("clientName", "ÇóÖúÕß:"+jo.getString("clientName"));
+				m.put("clientName", "æ±‚åŠ©è€…:"+jo.getString("clientName"));
 				m.put("priceId", jo.getInt("priceId"));
-				m.put("status", "×´Ì¬:"+OrderInfo.STATUS_STRING[jo.getInt("status")]);
+				m.put("status", "çŠ¶æ€:"+OrderInfo.STATUS_STRING[jo.getInt("status")]);
 				m.put("serverId", jo.getInt("serverId"));
 				m.put("serverName", jo.getString("serverName"));
 				m.put("price", jo.getInt("price"));
 				m.put("selected", jo.getInt("selected"));
-				m.put("applyerNum", "ÉêÇëÈËÊı:"+jo.getInt("applyerNum"));
+				m.put("applyerNum", "ç”³è¯·äººæ•°:"+jo.getInt("applyerNum"));
 				
 				list.add(m);
 
@@ -258,9 +258,9 @@ public class OrderInfo {
 	public static final int STATUS_VARIFY = 2;
 	public static final int STATUS_FINISH = 3;
 	public static final int STATUS_TIMEOUT = 4;
-	public static final String [] STATUS_STRING = new String[]{"¾º¼ÛÖĞ...", "´¦ÀíÖĞ...", "ÑéÊÕ", "Íê³É", "¹ıÆÚ"};
-	public static final String [] MATHOD_STRING = new String[]{"ÉÏÃÅ·şÎñ", "Ô¶³Ì·şÎñ"};
-	public static final String [] PROBLEMS = new String[]{"cpu","ÄÚ´æ","ÏÔ¿¨","Ó²ÅÌ","ÏÔÊ¾Æ÷","¼üÅÌ","Êó±ê"};
+	public static final String [] STATUS_STRING = new String[]{"ç«ä»·ä¸­...", "å¤„ç†ä¸­...", "éªŒæ”¶", "å®Œæˆ", "è¿‡æœŸ"};
+	public static final String [] MATHOD_STRING = new String[]{"ä¸Šé—¨æœåŠ¡", "è¿œç¨‹æœåŠ¡"};
+	public static final String [] PROBLEMS = new String[]{"cpu","å†…å­˜","æ˜¾å¡","ç¡¬ç›˜","æ˜¾ç¤ºå™¨","é”®ç›˜","é¼ æ ‡"};
 	
 	
 }

@@ -42,10 +42,10 @@ public class OrderDetailActivity extends Activity {
 	TextView price;
 	TextView status;
 	ListView serverList;
-	//ÔÚ´¦ÀíÖĞ ×´Ì¬ÏÂ serverÒ³ÃæµÄÍê³É°´Å¥
+	//åœ¨å¤„ç†ä¸­ çŠ¶æ€ä¸‹ serveré¡µé¢çš„å®ŒæˆæŒ‰é’®
 	Button btnFinish;
 	
-	//ÔÚÑéÊÕ ×´Ì¬ÏÂ  clientÒ³ÃæµÄÈ·ÈÏÍê³É°´Å¥
+	//åœ¨éªŒæ”¶ çŠ¶æ€ä¸‹  clienté¡µé¢çš„ç¡®è®¤å®ŒæˆæŒ‰é’®
 	Button btnOk;
 	
 	SimpleAdapter sa;
@@ -58,7 +58,7 @@ public class OrderDetailActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_order_detail);
-		//Òş²Øactionbar
+		//éšè—actionbar
 		final ActionBar actionBar = getActionBar();
 		actionBar.hide();
 
@@ -116,10 +116,10 @@ public class OrderDetailActivity extends Activity {
 			} else {
 				switch (json.getInt("error")) {
 				case 300:
-					msg = "¶©µ¥²»´æÔÚ";
+					msg = "è®¢å•ä¸å­˜åœ¨";
 					break;
 				case 301:
-					msg = "µÇÂ½ÓÃ»§ÃÜÂë´íÎó";
+					msg = "ç™»é™†ç”¨æˆ·å¯†ç é”™è¯¯";
 					break;
 				default:
 					break;
@@ -138,7 +138,7 @@ public class OrderDetailActivity extends Activity {
 		return true;
 	}
 	
-	//Ë¢ĞÂÒ³Ãæ
+	//åˆ·æ–°é¡µé¢
 	private void refresh(boolean isForce)
 	{
 		boolean isClient = User.getInstance().getType() == 0;
@@ -146,7 +146,7 @@ public class OrderDetailActivity extends Activity {
 		int pos = mBundle.getInt("pos");
 		if(isForce)
 		{
-			//ÇëÇó¶©µ¥×´Ì¬
+			//è¯·æ±‚è®¢å•çŠ¶æ€
 			if(isClient)
 			{	
 				DataManager.getInstance().refreshClient();
@@ -167,31 +167,31 @@ public class OrderDetailActivity extends Activity {
 			o = DataManager.getInstance().getServerOrderList().get(pos);
 		}
 		/*
-		String text = "µØÖ·:" + mBundle.getString("addr") + "\n";
-		text += "·şÎñ·½Ê½:" + mBundle.getInt("mathod") + "\n";
-		text += "ÁªÏµ·½Ê½:" + mBundle.getString("phone") + "\n";
-		text += "ÎÊÌâ·ÖÀà:" + mBundle.getString("problem") + "\n";
-		text += "·şÎñÊ±¼ä:" + mBundle.getString("serveTime") + "\n";
-		text += "´´½¨Ê±¼ä:" + mBundle.getString("createTime") + "\n";
-		text += "ÃèÊö:" + mBundle.getString("desc") + "\n";
+		String text = "åœ°å€:" + mBundle.getString("addr") + "\n";
+		text += "æœåŠ¡æ–¹å¼:" + mBundle.getInt("mathod") + "\n";
+		text += "è”ç³»æ–¹å¼:" + mBundle.getString("phone") + "\n";
+		text += "é—®é¢˜åˆ†ç±»:" + mBundle.getString("problem") + "\n";
+		text += "æœåŠ¡æ—¶é—´:" + mBundle.getString("serveTime") + "\n";
+		text += "åˆ›å»ºæ—¶é—´:" + mBundle.getString("createTime") + "\n";
+		text += "æè¿°:" + mBundle.getString("desc") + "\n";
 		info.setText(text);
 		
 		
 		int sta = mBundle.getInt("status");
-		status.setText("¶©µ¥×´Ì¬:" + OrderInfo.STATUS_STRING[sta]);
+		status.setText("è®¢å•çŠ¶æ€:" + OrderInfo.STATUS_STRING[sta]);
 		*/
-		String text = "µØÖ·:" + o.getAddr() + "\n";
-		text += "·şÎñ·½Ê½:" + OrderInfo.MATHOD_STRING[o.getMathod()] + "\n";
-		text += "ÁªÏµ·½Ê½:" + o.getPhone() + "\n";
-		text += "ÎÊÌâ·ÖÀà:" + OrderInfo.PROBLEMS[o.getProblem()] + "\n";
-		text += "·şÎñÊ±¼ä:" + o.getServeTime() + "\n";
-		text += "´´½¨Ê±¼ä:" + o.getCreateTime() + "\n";
-		text += "ÎÊÌâÃèÊö:" + o.getDesc() + "\n";
+		String text = "åœ°å€:" + o.getAddr() + "\n";
+		text += "æœåŠ¡æ–¹å¼:" + OrderInfo.MATHOD_STRING[o.getMathod()] + "\n";
+		text += "è”ç³»æ–¹å¼:" + o.getPhone() + "\n";
+		text += "é—®é¢˜åˆ†ç±»:" + OrderInfo.PROBLEMS[o.getProblem()] + "\n";
+		text += "æœåŠ¡æ—¶é—´:" + o.getServeTime() + "\n";
+		text += "åˆ›å»ºæ—¶é—´:" + o.getCreateTime() + "\n";
+		text += "é—®é¢˜æè¿°:" + o.getDesc() + "\n";
 		info.setText(text);
 		
 		
 		int sta = o.getStatus();
-		status.setText("¶©µ¥×´Ì¬:" + OrderInfo.STATUS_STRING[sta]);
+		status.setText("è®¢å•çŠ¶æ€:" + OrderInfo.STATUS_STRING[sta]);
 		listApplyer();
 		
 		if(isClient){
@@ -199,7 +199,7 @@ public class OrderDetailActivity extends Activity {
 			if(sta == OrderInfo.STATUS_APPLY)
 			{
 				
-				price.setText("¶©µ¥¼Û¸ñ:--");
+				price.setText("è®¢å•ä»·æ ¼:--");
 				
 				sa = new ServersSimpleAdapter(this, list,
 						R.layout.order_detail_server_list_item, new String[] {
@@ -210,11 +210,11 @@ public class OrderDetailActivity extends Activity {
 				serverList.setAdapter(sa);
 			}
 			else if(sta == OrderInfo.STATUS_DEAL){
-				price.setText("¶©µ¥¼Û¸ñ:"+list.get(0).get("price")+"\nÎ¬ĞŞÕß:"+list.get(0).get("serverName"));
+				price.setText("è®¢å•ä»·æ ¼:"+list.get(0).get("price")+"\nç»´ä¿®è€…:"+list.get(0).get("serverName"));
 				serverList.setVisibility(View.INVISIBLE);
 			}
 			else if(sta == OrderInfo.STATUS_VARIFY){
-				price.setText("¶©µ¥¼Û¸ñ:"+list.get(0).get("price")+"\nÎ¬ĞŞÕß:"+list.get(0).get("serverName"));
+				price.setText("è®¢å•ä»·æ ¼:"+list.get(0).get("price")+"\nç»´ä¿®è€…:"+list.get(0).get("serverName"));
 				serverList.setVisibility(View.INVISIBLE);
 				btnOk.setVisibility(View.VISIBLE);
 			}
@@ -229,18 +229,18 @@ public class OrderDetailActivity extends Activity {
 				
 			}
 			else if(sta == OrderInfo.STATUS_DEAL){
-				price.setText("¶©µ¥¼Û¸ñ:"+list.get(0).get("price")+"\nÎ¬ĞŞÕß:"+list.get(0).get("serverName"));
+				price.setText("è®¢å•ä»·æ ¼:"+list.get(0).get("price")+"\nç»´ä¿®è€…:"+list.get(0).get("serverName"));
 				btnFinish.setVisibility(View.VISIBLE);
 			}
 			else if(sta == OrderInfo.STATUS_VARIFY){
-				price.setText("¶©µ¥¼Û¸ñ:"+list.get(0).get("price")+"\nÎ¬ĞŞÕß:"+list.get(0).get("serverName"));
+				price.setText("è®¢å•ä»·æ ¼:"+list.get(0).get("price")+"\nç»´ä¿®è€…:"+list.get(0).get("serverName"));
 				btnFinish.setVisibility(View.INVISIBLE);
 			}
 		}
 		
 	}
 
-	//ÉêÇëÕâÁĞ±íµÄadapter
+	//ç”³è¯·è¿™åˆ—è¡¨çš„adapter
 	private class ServersSimpleAdapter extends SimpleAdapter {
 
 		public ServersSimpleAdapter(Context context,
@@ -258,8 +258,8 @@ public class OrderDetailActivity extends Activity {
 			btn.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					//price.setText("¶©µ¥¼Û¸ñ:100");
-					status.setText("¶©µ¥×´Ì¬£º´¦ÀíÖĞ...");
+					//price.setText("è®¢å•ä»·æ ¼:100");
+					status.setText("è®¢å•çŠ¶æ€ï¼šå¤„ç†ä¸­...");
 					serverList.setVisibility(View.INVISIBLE);
 					
 					Map<String,Object> m = OrderDetailActivity.this.list.get((Integer)v.getTag());
@@ -274,18 +274,18 @@ public class OrderDetailActivity extends Activity {
 					
 					if(selectApplyer(priceId, orderId, serverId))
 					{
-						text+=" ³É¹¦";
-						//ÏÔÊ¾serverµÄÃû×Ö£¬price
-						//price.setText("¶©µ¥¼Û¸ñ:"+pricevalue);
+						text+=" æˆåŠŸ";
+						//æ˜¾ç¤ºserverçš„åå­—ï¼Œprice
+						//price.setText("è®¢å•ä»·æ ¼:"+pricevalue);
 						refresh(true);
 					}
 					else
 					{
-						text+=" Ê§°Ü";
+						text+=" å¤±è´¥";
 					}
 					
 					Toast.makeText(getApplicationContext(),
-							"¶©µ¥ÏêÇéÒ³µã»÷ÁË" + text, 1).show();
+							"è®¢å•è¯¦æƒ…é¡µç‚¹å‡»äº†" + text, 1).show();
 					
 					
 
@@ -312,7 +312,7 @@ public class OrderDetailActivity extends Activity {
 				}
 				else
 				{
-					msg = json.getInt("error") == 100 ? "ÓÃ»§ÒÑ¾­´æÔÚ" : "Î´Öª´íÎó";
+					msg = json.getInt("error") == 100 ? "ç”¨æˆ·å·²ç»å­˜åœ¨" : "æœªçŸ¥é”™è¯¯";
 					return false;
 				}
 			} catch (JSONException e) {
@@ -331,7 +331,7 @@ public class OrderDetailActivity extends Activity {
 		return true;
 	}
 	
-	//Î¬ĞŞÕßµã¡°Íê³É¡± µ÷ÓÃ
+	//ç»´ä¿®è€…ç‚¹â€œå®Œæˆâ€ è°ƒç”¨
 	public boolean clickFinish(){
 		Map<String, String> map = new HashMap<String, String>();
 		
@@ -346,7 +346,7 @@ public class OrderDetailActivity extends Activity {
 			}
 			else
 			{
-				msg = json.getInt("error") == 100 ? "ÓÃ»§ÒÑ¾­´æÔÚ" : "Î´Öª´íÎó";
+				msg = json.getInt("error") == 100 ? "ç”¨æˆ·å·²ç»å­˜åœ¨" : "æœªçŸ¥é”™è¯¯";
 				return false;
 			}
 		} catch (JSONException e) {
@@ -357,7 +357,7 @@ public class OrderDetailActivity extends Activity {
 		return true;
 	}
 	
-	//¿Í»§µã¡°È·ÈÏÍê³É¡± µ÷ÓÃ
+	//å®¢æˆ·ç‚¹â€œç¡®è®¤å®Œæˆâ€ è°ƒç”¨
 	public boolean clickOk(){
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("orderId", ""+o.getOrderId());
@@ -371,7 +371,7 @@ public class OrderDetailActivity extends Activity {
 			}
 			else
 			{
-				msg = json.getInt("error") == 100 ? "ÓÃ»§ÒÑ¾­´æÔÚ" : "Î´Öª´íÎó";
+				msg = json.getInt("error") == 100 ? "ç”¨æˆ·å·²ç»å­˜åœ¨" : "æœªçŸ¥é”™è¯¯";
 				return false;
 			}
 		} catch (JSONException e) {

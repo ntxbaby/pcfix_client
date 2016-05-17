@@ -23,8 +23,8 @@ public class AdminActivity extends Activity implements ActionBar.TabListener{
 				actionBar.setDisplayShowHomeEnabled(false);
 				actionBar.setDisplayShowTitleEnabled(false);
 				actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-				actionBar.addTab(actionBar.newTab().setText("用户管理").setTabListener(this));
-				actionBar.addTab(actionBar.newTab().setText("订单管理").setTabListener(this));
+				actionBar.addTab(actionBar.newTab().setText("鐢ㄦ埛绠＄悊").setTabListener(this));
+				actionBar.addTab(actionBar.newTab().setText("璁㈠崟绠＄悊").setTabListener(this));
 	}
 
 	@Override

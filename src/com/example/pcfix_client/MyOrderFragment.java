@@ -112,10 +112,10 @@ public class MyOrderFragment extends Fragment {
 			} else {
 				switch (ret) {
 				case 300:
-					msg = "¶©µ¥²»´æÔÚ";
+					msg = "è®¢å•ä¸å­˜åœ¨";
 					break;
 				case 301:
-					msg = "µÇÂ½ÓÃ»§ÃÜÂë´íÎó";
+					msg = "ç™»é™†ç”¨æˆ·å¯†ç é”™è¯¯";
 					break;
 				default:
 					break;
@@ -145,10 +145,10 @@ public class MyOrderFragment extends Fragment {
 		} else {
 			switch (ret) {
 			case 300:
-				msg = "¶©µ¥²»´æÔÚ";
+				msg = "è®¢å•ä¸å­˜åœ¨";
 				break;
 			case 301:
-				msg = "µÇÂ½ÓÃ»§ÃÜÂë´íÎó";
+				msg = "ç™»é™†ç”¨æˆ·å¯†ç é”™è¯¯";
 				break;
 			default:
 				break;
@@ -184,10 +184,10 @@ public class MyOrderFragment extends Fragment {
 			} else {
 				switch (json.getInt("error")) {
 				case 300:
-					msg = "¶©µ¥²»´æÔÚ";
+					msg = "è®¢å•ä¸å­˜åœ¨";
 					break;
 				case 301:
-					msg = "µÇÂ½ÓÃ»§ÃÜÂë´íÎó";
+					msg = "ç™»é™†ç”¨æˆ·å¯†ç é”™è¯¯";
 					break;
 				default:
 					break;
@@ -231,10 +231,10 @@ public class MyOrderFragment extends Fragment {
 			} else {
 				switch (json.getInt("error")) {
 				case 300:
-					msg = "¶©µ¥²»´æÔÚ";
+					msg = "è®¢å•ä¸å­˜åœ¨";
 					break;
 				case 301:
-					msg = "µÇÂ½ÓÃ»§ÃÜÂë´íÎó";
+					msg = "ç™»é™†ç”¨æˆ·å¯†ç é”™è¯¯";
 					break;
 				default:
 					break;

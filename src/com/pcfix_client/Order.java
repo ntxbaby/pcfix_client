@@ -152,7 +152,7 @@ public class Order {
 	public static final int PROBLEM_MONITOR = 4;
 	public static final int PROBLEM_KEYBOARD = 5;
 	public static final int PROBLEM_MOUSE = 6;
-	//public static final String[] PROBLEM = new String[]{"cpu","ÄÚ´æ","ÏÔ¿¨","Ó²ÅÌ","ÏÔÊ¾Æ÷","¼üÅÌ","Êó±ê"};
+	//public static final String[] PROBLEM = new String[]{"cpu","å†…å­˜","æ˜¾å¡","ç¡¬ç›˜","æ˜¾ç¤ºå™¨","é”®ç›˜","é¼ æ ‡"};
 	
 	
 }

@@ -32,9 +32,9 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 		//actionBar.setHomeButtonEnabled(true);
 		//actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		actionBar.addTab(actionBar.newTab().setText("活动订单").setTabListener(this));
-		actionBar.addTab(actionBar.newTab().setText("我的订单").setTabListener(this));
-		actionBar.addTab(actionBar.newTab().setText("历史订单").setTabListener(this));
+		actionBar.addTab(actionBar.newTab().setText("娲诲姩璁㈠崟").setTabListener(this));
+		actionBar.addTab(actionBar.newTab().setText("鎴戠殑璁㈠崟").setTabListener(this));
+		actionBar.addTab(actionBar.newTab().setText("鍘嗗彶璁㈠崟").setTabListener(this));
 		
 	}
 	
@@ -119,7 +119,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 		case R.id.action_refresh:
 		{
 			
-			Toast.makeText(this, "刷新", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, "鍒锋柊", Toast.LENGTH_LONG).show();
 			if (fragment instanceof ViewOrderFragment) {
 				ViewOrderFragment vf = (ViewOrderFragment) fragment;
 				vf.list1();
