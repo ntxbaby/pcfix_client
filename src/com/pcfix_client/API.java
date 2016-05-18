@@ -20,6 +20,7 @@ public class API {
 	public static final String DELETE_USER = BASE_URL + "delete_user";
 	public static final String DELETE_ORDER = BASE_URL + "delete_order";
 	public static final String FINISH = BASE_URL + "finish";
+	public static final String CHANGE_PWD = BASE_URL + "change_pwd";
 	public static final String OK = BASE_URL + "ok";
 	public static final String [] STATES = new String[]{"竞价中...", "处理中...", "完成", "过期"};
 	public static final String [] STATES_SERVER = new String[]{"申请中...", "处理中...", "完成", "过期"};

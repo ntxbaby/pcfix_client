@@ -17,6 +17,7 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -122,12 +123,6 @@ private boolean submit(){
 		if (submit()) {
 			Toast.makeText(this, "提交成功！", Toast.LENGTH_LONG).show();
 			
-//			Fragment fragment = null;
-//			
-//			fragment = new ViewOrderFragment();
-//			FragmentTransaction ftr = getFragmentManager().beginTransaction();
-//			ftr.replace(R.id.main_container, fragment);
-//			ftr.commit();
 			finish();
 			
 		}else{
@@ -141,5 +136,18 @@ private boolean submit(){
 		//getMenuInflater().inflate(R.menu.add_order, menu);
 		return true;
 	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		if(item.getItemId() == android.R.id.home)
+		{
+			finish();
+		}
+			
+		return super.onOptionsItemSelected(item);
+	}
+	
+	
 
 }
