@@ -153,7 +153,9 @@
             android:background="@drawable/bg_edit"
             android:inputType="text"
             android:padding="5dp"
-            android:textSize="15sp" />
+            android:textSize="15sp" 
+            android:hint="格式:2016-08-08 08:08:08" 
+            />
 
     </TableRow>
 

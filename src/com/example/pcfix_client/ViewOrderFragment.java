@@ -61,10 +61,10 @@ public class ViewOrderFragment extends Fragment {
 				Map<String, Object> map = data.get(position);
 
 				mBundle.putString("addr", (String) map.get("addr"));
-				mBundle.putString("name", (String) map.get("name"));
+				mBundle.putString("clientName", (String) map.get("clientName"));
 				mBundle.putString("createTime", (String) map.get("createTime"));
 				mBundle.putString("desc", (String) map.get("desc"));
-				mBundle.putString("apply", (String) map.get("apply"));
+				mBundle.putString("applyerNum", (String) map.get("applyerNum"));
 				mBundle.putInt("orderId", (Integer) map.get("orderId"));
 
 				intent.putExtras(mBundle);
@@ -75,60 +75,14 @@ public class ViewOrderFragment extends Fragment {
 
 		});
 
-		list1();
+		list();
 
 		return view;
 	}
 
-	private boolean list() {
 
-		Map<String, String> map = new HashMap<String, String>();
 
-		try {
-			JSONObject json = new JSONObject(HttpUtil.postRequest(
-					API.LIST_ACTIVE_ORDERS, map));
-			Log.d("LIST_ACTIVE_ORDERS-json", json.toString());
-
-			if (json.getInt("result") == 0) {
-				JSONArray ja = json.getJSONArray("orderInfos");
-
-				data = OrderInfo.toAdapterData(ja);
-				SimpleAdapter sa = new SimpleAdapter(getActivity(), data,
-						R.layout.view_order_list_item, new String[] {
-								"clientName", "addr", "createTime",
-								"applyerNum", "desc" }, new int[] {
-								R.id.list_item_name, R.id.list_item_addr,
-								R.id.list_item_time, R.id.list_item_apply,
-								R.id.list_item_desc });
-				orderList.setAdapter(sa);
-
-				return true;
-			} else {
-				switch (json.getInt("error")) {
-				case 300:
-					msg = "订单不存在";
-					break;
-				case 301:
-					msg = "登陆用户密码错误";
-					break;
-				default:
-					break;
-				}
-
-				return false;
-			}
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return true;
-	}
-
-	public boolean list1() {
+	public boolean list() {
 
 		int ret = DataManager.getInstance().refreshActive();
 		if (ret == 0) {

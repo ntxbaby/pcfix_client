@@ -1,5 +1,8 @@
 package com.example.pcfix_client;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,6 +69,33 @@ public class AddOrderActivity extends Activity {
 		
 	}
 	
+	String nowTimeStr()
+	{
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    		return sdf.format(new Date()) ;
+	}
+	
+	private Date str2Date(String str)
+	{
+		
+		if(str == null) 
+			return null;
+		else{
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    		try {
+				
+    			return sdf.parse( str ) ;
+    			
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		return null;
+		
+	}
+	
 private boolean submit(){
 		
 		String desc = editDesc.getText().toString();
@@ -79,7 +109,7 @@ private boolean submit(){
 		map.put("order.desc", desc);
 		map.put("order.phone", phone);
 		map.put("order.addr", addr);
-		map.put("order.createTime", time);
+		map.put("order.createTime", nowTimeStr());
 		map.put("order.serveTime", time);
 		map.put("order.mathod", mathod);
 		map.put("order.problem", problem);

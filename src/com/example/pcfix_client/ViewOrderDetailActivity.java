@@ -54,10 +54,10 @@ public class ViewOrderDetailActivity extends Activity {
 		mBundle = getIntent().getExtras();
 
 		String text = mBundle.getString("addr") + "\n";
-		text += mBundle.getString("name") + "\n";
+		text += mBundle.getString("clientName") + "\n";
 		text += "创建时间:" + mBundle.getString("createTime") + "\n";
 		text += mBundle.getString("desc") + "\n";
-		text += mBundle.getString("apply") + "\n";
+		text += mBundle.getString("applyerNum") + "\n";
 		info.setText(text);
 		// 如果是维修用户
 		if (User.getInstance().getType() == 1) {

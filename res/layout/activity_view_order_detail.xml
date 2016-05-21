@@ -18,7 +18,7 @@
         android:id="@+id/view_order_detail_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="价格" />
+        android:hint="请输入价格" />
     <Button
         android:id="@+id/view_order_detail_apply"
         android:layout_width="match_parent"
