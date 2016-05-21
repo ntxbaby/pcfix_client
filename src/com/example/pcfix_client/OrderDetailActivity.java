@@ -49,7 +49,7 @@ public class OrderDetailActivity extends Activity {
 	Button btnOk;
 	
 	SimpleAdapter sa;
-	List<Map<String, Object>> mListMap;
+	List<Map<String, Object>> mListMap = new ArrayList<Map<String, Object>>();
 	List<Applyer> mListApplyer;
 	Bundle mBundle;
 	OrderInfo o = null;
@@ -216,6 +216,19 @@ public class OrderDetailActivity extends Activity {
 								R.id.detail_list_item_name,
 								R.id.detail_list_item_price,
 								R.id.detail_list_item_time });
+				if(sa == null)
+				{
+					Log.d("debug", "sa=null");
+				}
+				if(mListMap == null)
+				{
+					Log.d("debug", "mListMap=null");
+				}
+				if(serverList == null)
+				{
+					Log.d("debug", "serverList=null");
+				}
+				
 				serverList.setAdapter(sa);
 			}
 			else if(sta == OrderInfo.STATUS_DEAL){
