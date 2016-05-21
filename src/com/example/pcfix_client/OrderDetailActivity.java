@@ -25,6 +25,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -59,8 +60,12 @@ public class OrderDetailActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_order_detail);
 		//隐藏actionbar
+		//actionbar设置
 		final ActionBar actionBar = getActionBar();
-		actionBar.hide();
+		actionBar.setDisplayShowHomeEnabled(false);
+		actionBar.setDisplayShowTitleEnabled(true);
+		actionBar.setTitle("我的订单详情");
+		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		serverList = (ListView) findViewById(R.id.order_detail_server_list);
 		info = (TextView) findViewById(R.id.order_detail_info);
@@ -91,6 +96,16 @@ public class OrderDetailActivity extends Activity {
 		
 
 		refresh(false);
+	}
+	
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		if(item.getItemId() == android.R.id.home)
+		{
+			finish();
+		}
+			
+		return super.onOptionsItemSelected(item);
 	}
 
 

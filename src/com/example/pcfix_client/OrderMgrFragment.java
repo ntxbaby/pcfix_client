@@ -17,7 +17,6 @@ import com.pcfix_client.Order;
 import com.pcfix_client.OrderInfo;
 import com.pcfix_client.SerializableMap;
 import com.pcfix_client.User;
-import com.pcfix_client.ViewOrder;
 
 import android.app.Fragment;
 import android.content.Intent;

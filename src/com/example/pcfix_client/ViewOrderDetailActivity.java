@@ -22,6 +22,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -45,8 +46,12 @@ public class ViewOrderDetailActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_order_detail);
+		//actionbar设置
 		final ActionBar actionBar = getActionBar();
-		actionBar.hide();
+		actionBar.setDisplayShowHomeEnabled(false);
+		actionBar.setDisplayShowTitleEnabled(true);
+		actionBar.setTitle("活动订单详情");
+		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		info = (TextView) findViewById(R.id.view_order_detail_info);
 		apply = (Button) findViewById(R.id.view_order_detail_apply);
@@ -133,6 +138,16 @@ public class ViewOrderDetailActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.order_detail, menu);
 		return true;
+	}
+	
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		if(item.getItemId() == android.R.id.home)
+		{
+			finish();
+		}
+			
+		return super.onOptionsItemSelected(item);
 	}
 
 }

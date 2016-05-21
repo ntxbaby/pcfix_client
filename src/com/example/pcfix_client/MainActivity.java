@@ -26,11 +26,8 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 		
 		//tab
 		final ActionBar actionBar = getActionBar();
-		//actionBar.hide();
 		actionBar.setDisplayShowHomeEnabled(false);
 		actionBar.setDisplayShowTitleEnabled(false);
-		//actionBar.setHomeButtonEnabled(true);
-		//actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		actionBar.addTab(actionBar.newTab().setText("活动订单").setTabListener(this));
 		actionBar.addTab(actionBar.newTab().setText("我的订单").setTabListener(this));
@@ -122,7 +119,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 			Toast.makeText(this, "刷新", Toast.LENGTH_LONG).show();
 			if (fragment instanceof ViewOrderFragment) {
 				ViewOrderFragment vf = (ViewOrderFragment) fragment;
-				vf.list1();
+				vf.list();
 			}
 			else if( fragment instanceof MyOrderFragment)
 			{

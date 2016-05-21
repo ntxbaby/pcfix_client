@@ -14,7 +14,6 @@ import com.pcfix_client.DataManager;
 import com.pcfix_client.HttpUtil;
 import com.pcfix_client.Order;
 import com.pcfix_client.OrderInfo;
-import com.pcfix_client.ViewOrder;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
