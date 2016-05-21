@@ -13,7 +13,6 @@ import com.pcfix_client.API;
 import com.pcfix_client.HttpUtil;
 import com.pcfix_client.Order;
 import com.pcfix_client.Price;
-import com.pcfix_client.SerializableMap;
 import com.pcfix_client.User;
 
 import android.os.Bundle;

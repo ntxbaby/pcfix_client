@@ -16,7 +16,6 @@ import com.pcfix_client.HttpUtil;
 import com.pcfix_client.Order;
 import com.pcfix_client.OrderInfo;
 import com.pcfix_client.Price;
-import com.pcfix_client.SerializableMap;
 import com.pcfix_client.User;
 
 import android.os.Bundle;
@@ -51,7 +50,6 @@ public class OrderDetailActivity extends Activity {
 	
 	SimpleAdapter sa;
 	List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-	SerializableMap serializableMap;
 	Bundle mBundle;
 	OrderInfo o = null;
 
