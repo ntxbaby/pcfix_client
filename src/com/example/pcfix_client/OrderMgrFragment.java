@@ -50,10 +50,6 @@ public class OrderMgrFragment extends Fragment {
 				ViewGroup.LayoutParams.MATCH_PARENT,
 				ViewGroup.LayoutParams.MATCH_PARENT));
 		listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-		//test
-//		String [] arr1 = new String [] {"order1", "order2", "order3"};
-//		ArrayAdapter<String> aa = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_multiple_choice, arr1);
-//		listView.setAdapter(aa);
 		refresh();
 		listView.setOnItemClickListener(new OnItemClickListener() {
 

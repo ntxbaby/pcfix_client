@@ -1,5 +1,6 @@
 package com.pcfix_client;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -76,25 +77,42 @@ public class Applyer {
 
 				jo = ja.getJSONObject(i);
 				
-//				Applyer p = new Applyer(jo.getInt("id"),
-//						jo.getInt("orderId"),
-//						jo.getInt("serverId"),
-//						jo.getInt("price"),
-//						jo.getInt("selected"),
-//						jo.getString("serverName"));
 				
 				Map<String, Object> m = new HashMap<String, Object>();
 				m.put("id", jo.getInt("id"));
 				m.put("orderId", jo.getInt("orderId"));
-				m.put("serverId", jo.getInt("serverId"));
-				m.put("price", jo.getInt("price"));
+				m.put("serverId", "维修者ID:" + jo.getInt("serverId"));
+				m.put("price", "报价:" + jo.getInt("price"));
 				m.put("selected", jo.getInt("selected"));
-				m.put("serverName", jo.getString("serverName"));
+				m.put("serverName", "维修者名字:" + jo.getString("serverName"));
 				
 				list.add(m);
 
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+		return list;
+	}
+	
+	public static List<Applyer> toApplyerInfo(JSONArray ja){
+		List<Applyer> list = new ArrayList<Applyer>();
+		for (int i = 0; i < ja.length(); i++) {
+			JSONObject jo;
+			try {
+				jo = ja.getJSONObject(i);
+				Applyer a = new Applyer();
+				a.setOrderId(jo.getInt("orderId"));
+				a.setId(jo.getInt("id"));
+				a.setOrderId(jo.getInt("orderId"));
+				a.setServerId(jo.getInt("serverId"));
+				a.setServerName(jo.getString("serverName"));
+				a.setPrice(jo.getInt("price"));
+				a.setSelected(jo.getInt("selected"));
+				list.add(a);
+
+			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 

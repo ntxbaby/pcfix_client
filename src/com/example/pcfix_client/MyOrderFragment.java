@@ -39,9 +39,9 @@ public class MyOrderFragment extends Fragment {
 	public void refresh()
 	{
 		if (User.getInstance().getType() == 0) {
-			listClientOrders1();
+			listClientOrders();
 		} else {
-			listServerOrders1();
+			listServerOrders();
 		}
 	}
 
@@ -66,21 +66,6 @@ public class MyOrderFragment extends Fragment {
 
 				Bundle mBundle = new Bundle();
 				mBundle.putInt("pos", position);
-			/*	Map<String, Object> map = data.get(position);
-
-				mBundle.putString("addr", (String) map.get("addr"));
-				mBundle.putInt("clientId", (Integer) map.get("clientId"));
-				mBundle.putString("createTime", (String) map.get("createTime"));
-				mBundle.putString("desc", (String) map.get("desc"));
-				//mBundle.putInt("mathod", (Integer) map.get("mathod"));
-				mBundle.putInt("orderId", (Integer) map.get("orderId"));
-				mBundle.putString("phone", (String) map.get("phone"));
-				mBundle.putInt("priceId", (Integer) map.get("priceId"));
-				mBundle.putInt("problem", (Integer) map.get("problem"));
-				mBundle.putString("serveTime", (String) map.get("serveTime"));
-				mBundle.putInt("serverId", (Integer) map.get("serverId"));
-				mBundle.putInt("status", (Integer) map.get("status"));
-*/
 				intent.putExtras(mBundle);
 
 				startActivity(intent);
@@ -92,7 +77,7 @@ public class MyOrderFragment extends Fragment {
 		return listView;
 	}
 
-	private boolean listClientOrders1() {
+	private boolean listClientOrders() {
 
 		int ret = DataManager.getInstance().refreshClient();
 		
@@ -125,7 +110,7 @@ public class MyOrderFragment extends Fragment {
 
 	}
 	
-	private boolean listServerOrders1() {
+	private boolean listServerOrders() {
 
 		int ret = DataManager.getInstance().refreshServer();
 		
@@ -157,98 +142,6 @@ public class MyOrderFragment extends Fragment {
 	
 	}
 	
-	private boolean listClientOrders() {
 
-		Map<String, String> map = new HashMap<String, String>();
-
-		map.put("clientId", "" + User.getInstance().getId());
-
-		try {
-			JSONObject json = new JSONObject(HttpUtil.postRequest(
-					API.LIST_CLIENT_ORDERS, map));
-			Log.d("LIST_CLIENT_ORDERS-json", json.toString());
-			if (json.getInt("result") == 0) {
-				JSONArray ja = json.getJSONArray("orderInfos");
-
-				data = OrderInfo.toAdapterData(ja);
-				SimpleAdapter sa = new SimpleAdapter(getActivity(), data,
-						R.layout.my_order_list_item, new String[] { "status",
-								"createTime", "desc" }, new int[] {
-								R.id.list_item_state, R.id.list_item_time,
-								R.id.list_item_desc });
-				listView.setAdapter(sa);
-
-				return true;
-			} else {
-				switch (json.getInt("error")) {
-				case 300:
-					msg = "订单不存在";
-					break;
-				case 301:
-					msg = "登陆用户密码错误";
-					break;
-				default:
-					break;
-				}
-
-				return false;
-			}
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return true;
-	}
-	
-	private boolean listServerOrders() {
-
-		Map<String, String> map = new HashMap<String, String>();
-
-		map.put("serverId", "" + User.getInstance().getId());
-
-		try {
-			JSONObject json = new JSONObject(HttpUtil.postRequest(
-					API.LIST_SERVER_ORDERS, map));
-			Log.d("LIST_SERVER_ORDERS-json", json.toString());
-			if (json.getInt("result") == 0) {
-				JSONArray ja = json.getJSONArray("orderInfos");
-
-				data = OrderInfo.toAdapterData(ja);
-				SimpleAdapter sa = new SimpleAdapter(getActivity(), data,
-						R.layout.my_order_list_item, new String[] { "status",
-								"createTime", "desc" }, new int[] {
-								R.id.list_item_state, R.id.list_item_time,
-								R.id.list_item_desc });
-				listView.setAdapter(sa);
-
-				return true;
-			} else {
-				switch (json.getInt("error")) {
-				case 300:
-					msg = "订单不存在";
-					break;
-				case 301:
-					msg = "登陆用户密码错误";
-					break;
-				default:
-					break;
-				}
-
-				return false;
-			}
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return true;
-	}
 
 }

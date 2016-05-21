@@ -6,9 +6,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_item_list">Items</string>
     <string name="title_item_detail">Item Detail</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_activity_register">RegisterActivity</string>
-    <string name="title_activity_add_order">AddOrderActivity</string>
+    <string name="title_activity_main">主界面</string>
+    <string name="title_activity_register">用户注册</string>
+    <string name="title_activity_add_order">添加订单</string>
 
     <string-array name="problems">
         <item>cpu</item>

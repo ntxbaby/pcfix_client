@@ -24,10 +24,15 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 		setContentView(R.layout.activity_main);
 		
 		
-		//tab
+		//设置actionbar
 		final ActionBar actionBar = getActionBar();
 		actionBar.setDisplayShowHomeEnabled(false);
-		actionBar.setDisplayShowTitleEnabled(false);
+		actionBar.setDisplayShowTitleEnabled(true);
+		//设置activity的标题
+		String title = User.getInstance().getType() == 0 ? "普通用户:" : "维修用户:";
+		title += User.getInstance().getName();
+		actionBar.setTitle(title);
+		
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		actionBar.addTab(actionBar.newTab().setText("活动订单").setTabListener(this));
 		actionBar.addTab(actionBar.newTab().setText("我的订单").setTabListener(this));
@@ -116,21 +121,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 		case R.id.action_refresh:
 		{
 			
-			Toast.makeText(this, "刷新", Toast.LENGTH_LONG).show();
-			if (fragment instanceof ViewOrderFragment) {
-				ViewOrderFragment vf = (ViewOrderFragment) fragment;
-				vf.list();
-			}
-			else if( fragment instanceof MyOrderFragment)
-			{
-				MyOrderFragment mf = (MyOrderFragment) fragment;
-				mf.refresh();
-			}
-			else if( fragment instanceof HistoryOrderFragment)
-			{
-				HistoryOrderFragment hf = (HistoryOrderFragment) fragment;
-				hf.refresh();
-			}
+			refreshMain();
 			break;
 		}
 			
@@ -145,8 +136,33 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
+
+
+	private void refreshMain() {
+		
+		if (fragment instanceof ViewOrderFragment) {
+			ViewOrderFragment vf = (ViewOrderFragment) fragment;
+			vf.list();
+		}
+		else if( fragment instanceof MyOrderFragment)
+		{
+			MyOrderFragment mf = (MyOrderFragment) fragment;
+			mf.refresh();
+		}
+		else if( fragment instanceof HistoryOrderFragment)
+		{
+			HistoryOrderFragment hf = (HistoryOrderFragment) fragment;
+			hf.refresh();
+		}
+	}
 	
-	
+	//每次从其他activity返回主界面的时候调用刷新
+	@Override
+	protected void onResume() {
+		refreshMain();
+		super.onResume();
+	}
 	
 
 }

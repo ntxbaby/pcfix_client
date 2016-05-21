@@ -35,20 +35,20 @@ public class LoginActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+		final ActionBar actionBar = getActionBar();
+		actionBar.hide();
 		editName = (EditText)findViewById(R.id.login_user);
 		editPwd = (EditText)findViewById(R.id.login_pwd);
 		btnLogin = (Button)findViewById(R.id.btnLogin);
 		btnCancel = (Button)findViewById(R.id.btnCancel);
 		btnRegister = (Button)findViewById(R.id.btnRegister);
-		rg = (RadioGroup)findViewById(R.id.login_user_type);
-		final ActionBar actionBar = getActionBar();
-		actionBar.hide();
+		//rg = (RadioGroup)findViewById(R.id.login_user_type);
+		
 	}
 	
 	public void onLogin(View v) {
-		// TODO Auto-generated method stub
-		if(validate()){
-			if(loginPro()){
+
+			if(validate()){
 				Toast.makeText(this, "恭喜您，登陆成功！", Toast.LENGTH_LONG).show();
 				Intent intent = null;
 				if (!name.equals("admin")) {
@@ -60,34 +60,24 @@ public class LoginActivity extends Activity {
 			}else{
 				Toast.makeText(this, "对不起，登陆失败！" + msg, Toast.LENGTH_LONG).show();
 			}
-		}
+		
 	}
 
+	//注册按钮的回调函数，启动注册activity
 	public void onRegister(View v) {
-		// TODO Auto-generated method stub
 		Intent intent = new Intent(this, RegisterActivity.class);
 		startActivity(intent);
 	}
 	
+	
 	private boolean validate(){
-		return true;
-	}
 	
-	private boolean loginPro(){
-	
-		String type = rg.getCheckedRadioButtonId() == R.id.login_client ? "0" : "1";
+		//String type = rg.getCheckedRadioButtonId() == R.id.login_client ? "0" : "1";
 		name = editName.getText().toString();
 		String pwd = editPwd.getText().toString();
 		
-		StringBuilder sb = new StringBuilder();
-		sb.append("type:"+type +"\n");
-		sb.append("name:"+name +"\n");
-		sb.append("pwd:"+pwd +"\n");
-		
-		Log.d("LOGIN", sb.toString());
 		
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("user.type", type);
 		map.put("user.name", name);
 		map.put("user.pwd", pwd);
 		
@@ -110,7 +100,7 @@ public class LoginActivity extends Activity {
 					msg = "登陆用户密码错误";	
 					break;
 				case 202:
-					msg = "登陆用户类型错误";
+					msg = "参数错误";
 					break;
 
 				default:
@@ -120,10 +110,8 @@ public class LoginActivity extends Activity {
 				return false;
 			}
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -132,7 +120,6 @@ public class LoginActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.login, menu);
 		return true;
 	}

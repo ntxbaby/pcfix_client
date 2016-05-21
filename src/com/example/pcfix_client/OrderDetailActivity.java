@@ -49,7 +49,8 @@ public class OrderDetailActivity extends Activity {
 	Button btnOk;
 	
 	SimpleAdapter sa;
-	List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+	List<Map<String, Object>> mListMap;
+	List<Applyer> mListApplyer;
 	Bundle mBundle;
 	OrderInfo o = null;
 
@@ -88,7 +89,13 @@ public class OrderDetailActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				clickOk();
+				if(clickOk()){
+					//确认完成
+					Toast.makeText(OrderDetailActivity.this, "订单完成",
+							Toast.LENGTH_LONG).show();
+					//订单完后退出详情页
+					OrderDetailActivity.this.finish();
+				}
 			}
 		});
 		
@@ -97,7 +104,7 @@ public class OrderDetailActivity extends Activity {
 	}
 	
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
+		//返回到主activity
 		if(item.getItemId() == android.R.id.home)
 		{
 			finish();
@@ -108,7 +115,7 @@ public class OrderDetailActivity extends Activity {
 
 
 	
-
+	//普通用户从申请者列表中选择一个维修者调用
 	private boolean listApplyer() {
 
 		Map<String, String> map = new HashMap<String, String>();
@@ -122,8 +129,8 @@ public class OrderDetailActivity extends Activity {
 			if (json.getInt("result") == 0) {
 				
 				JSONArray ja = json.getJSONArray("applyers");
-				list = Applyer.toAdapterData(ja);
-
+				mListMap = Applyer.toAdapterData(ja);
+				mListApplyer = Applyer.toApplyerInfo(ja);
 				return true;
 				
 			} else {
@@ -141,10 +148,8 @@ public class OrderDetailActivity extends Activity {
 				return false;
 			}
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -152,6 +157,10 @@ public class OrderDetailActivity extends Activity {
 	}
 	
 	//刷新页面
+	//我的订单详情页面根据 1维修用户还是普通用户 2订单当前状态等 显示有所不同
+	//订单基本信息总是会显示
+	//1普通用户 在: 申请状态 会显示显示申请者列表，处理状态无额外显示，验收状态会显示一个确认完成按钮
+	//2维修用户在 ：申请状态和验收状态无额外显示，处理状态会显示完成按钮
 	private void refresh(boolean isForce)
 	{
 		boolean isClient = User.getInstance().getType() == 0;
@@ -179,20 +188,7 @@ public class OrderDetailActivity extends Activity {
 		{
 			o = DataManager.getInstance().getServerOrderList().get(pos);
 		}
-		/*
-		String text = "地址:" + mBundle.getString("addr") + "\n";
-		text += "服务方式:" + mBundle.getInt("mathod") + "\n";
-		text += "联系方式:" + mBundle.getString("phone") + "\n";
-		text += "问题分类:" + mBundle.getString("problem") + "\n";
-		text += "服务时间:" + mBundle.getString("serveTime") + "\n";
-		text += "创建时间:" + mBundle.getString("createTime") + "\n";
-		text += "描述:" + mBundle.getString("desc") + "\n";
-		info.setText(text);
 		
-		
-		int sta = mBundle.getInt("status");
-		status.setText("订单状态:" + OrderInfo.STATUS_STRING[sta]);
-		*/
 		String text = "地址:" + o.getAddr() + "\n";
 		text += "服务方式:" + OrderInfo.MATHOD_STRING[o.getMathod()] + "\n";
 		text += "联系方式:" + o.getPhone() + "\n";
@@ -214,7 +210,7 @@ public class OrderDetailActivity extends Activity {
 				
 				price.setText("订单价格:--");
 				
-				sa = new ServersSimpleAdapter(this, list,
+				sa = new ServersSimpleAdapter(this, mListMap,
 						R.layout.order_detail_server_list_item, new String[] {
 								"serverName", "price", "serverId" }, new int[] {
 								R.id.detail_list_item_name,
@@ -223,11 +219,11 @@ public class OrderDetailActivity extends Activity {
 				serverList.setAdapter(sa);
 			}
 			else if(sta == OrderInfo.STATUS_DEAL){
-				price.setText("订单价格:"+list.get(0).get("price")+"\n维修者:"+list.get(0).get("serverName"));
+				price.setText("订单价格:"+mListMap.get(0).get("price")+"\n维修者:"+mListMap.get(0).get("serverName"));
 				serverList.setVisibility(View.INVISIBLE);
 			}
 			else if(sta == OrderInfo.STATUS_VARIFY){
-				price.setText("订单价格:"+list.get(0).get("price")+"\n维修者:"+list.get(0).get("serverName"));
+				price.setText("订单价格:"+mListMap.get(0).get("price")+"\n维修者:"+mListMap.get(0).get("serverName"));
 				serverList.setVisibility(View.INVISIBLE);
 				btnOk.setVisibility(View.VISIBLE);
 			}
@@ -242,11 +238,11 @@ public class OrderDetailActivity extends Activity {
 				
 			}
 			else if(sta == OrderInfo.STATUS_DEAL){
-				price.setText("订单价格:"+list.get(0).get("price")+"\n维修者:"+list.get(0).get("serverName"));
+				price.setText("订单价格:"+mListMap.get(0).get("price")+"\n维修者:"+mListMap.get(0).get("serverName"));
 				btnFinish.setVisibility(View.VISIBLE);
 			}
 			else if(sta == OrderInfo.STATUS_VARIFY){
-				price.setText("订单价格:"+list.get(0).get("price")+"\n维修者:"+list.get(0).get("serverName"));
+				price.setText("订单价格:"+mListMap.get(0).get("price")+"\n维修者:"+mListMap.get(0).get("serverName"));
 				btnFinish.setVisibility(View.INVISIBLE);
 			}
 		}
@@ -275,11 +271,11 @@ public class OrderDetailActivity extends Activity {
 					status.setText("订单状态：处理中...");
 					serverList.setVisibility(View.INVISIBLE);
 					
-					Map<String,Object> m = OrderDetailActivity.this.list.get((Integer)v.getTag());
-					int priceId = (Integer)m.get("id");
-					int orderId = (Integer)m.get("orderId");
-					int serverId = (Integer)m.get("serverId");
-					int pricevalue = (Integer)m.get("price");
+					Applyer a = OrderDetailActivity.this.mListApplyer.get((Integer)v.getTag());
+					int priceId = a.getId();
+					int orderId = a.getOrderId();
+					int serverId = a.getServerId();
+					int pricevalue = a.getPrice();
 					
 					String text = "priceId=" + priceId;
 					text += "orderId=" + orderId;

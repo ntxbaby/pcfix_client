@@ -63,7 +63,6 @@ public class AddOrderActivity extends Activity {
 		actionBar.setDisplayShowHomeEnabled(false);
 		actionBar.setDisplayShowTitleEnabled(true);
 		actionBar.setTitle("添加订单");
-		//actionBar.setHomeButtonEnabled(true);
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		
 		
@@ -75,26 +74,7 @@ public class AddOrderActivity extends Activity {
     		return sdf.format(new Date()) ;
 	}
 	
-	private Date str2Date(String str)
-	{
-		
-		if(str == null) 
-			return null;
-		else{
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    		try {
-				
-    			return sdf.parse( str ) ;
-    			
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
-		return null;
-		
-	}
+	
 	
 private boolean submit(){
 		
@@ -139,10 +119,8 @@ private boolean submit(){
 				return false;
 			}
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return true;
@@ -177,6 +155,10 @@ private boolean submit(){
 			
 		return super.onOptionsItemSelected(item);
 	}
+
+	
+	
+	
 	
 	
 

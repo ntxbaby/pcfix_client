@@ -1,39 +1,29 @@
 package com.example.pcfix_client;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.pcfix_client.API;
 import com.pcfix_client.HttpUtil;
-import com.pcfix_client.Order;
-import com.pcfix_client.Price;
 import com.pcfix_client.User;
 
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
-import android.content.Context;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+//活动订单详情页
 public class ViewOrderDetailActivity extends Activity {
 	TextView info;
 	Button apply;
@@ -45,7 +35,7 @@ public class ViewOrderDetailActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_order_detail);
-		//actionbar设置
+		// actionbar设置
 		final ActionBar actionBar = getActionBar();
 		actionBar.setDisplayShowHomeEnabled(false);
 		actionBar.setDisplayShowTitleEnabled(true);
@@ -65,13 +55,15 @@ public class ViewOrderDetailActivity extends Activity {
 		info.setText(text);
 		// 如果是维修用户
 		if (User.getInstance().getType() == 1) {
+			//显示申请者数目和价格控件
 			apply.setVisibility(View.VISIBLE);
 			price.setVisibility(View.VISIBLE);
+			
+			//设置申请按钮回调函数
 			apply.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					// TODO Auto-generated method stub
 					int orderId = mBundle.getInt("orderId");
 					String m = "orderId:" + orderId;
 					if (apply(orderId)) {
@@ -79,11 +71,14 @@ public class ViewOrderDetailActivity extends Activity {
 					} else {
 						m = m + " 申请失败!";
 					}
-					Toast.makeText(ViewOrderDetailActivity.this,
-							m, Toast.LENGTH_SHORT).show();
+					Toast.makeText(ViewOrderDetailActivity.this, m,
+							Toast.LENGTH_LONG).show();
+					//申请完后退出详情页
+					ViewOrderDetailActivity.this.finish();
 				}
 			});
 		} else {
+			//隐藏申请者数目和价格控件
 			apply.setVisibility(View.INVISIBLE);
 			price.setVisibility(View.INVISIBLE);
 		}
@@ -122,10 +117,8 @@ public class ViewOrderDetailActivity extends Activity {
 				return false;
 			}
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -134,18 +127,14 @@ public class ViewOrderDetailActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.order_detail, menu);
 		return true;
 	}
-	
+
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
-		if(item.getItemId() == android.R.id.home)
-		{
+		if (item.getItemId() == android.R.id.home) {
 			finish();
 		}
-			
 		return super.onOptionsItemSelected(item);
 	}
 
